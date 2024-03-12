@@ -1,7 +1,7 @@
-package fr.projet.enchere.projet_grp7_enchere.bll;
+package fr.projet.enchere.projet_grp7_enchere.bll.categorieService;
 
 import fr.projet.enchere.projet_grp7_enchere.bo.Categorie;
-import fr.projet.enchere.projet_grp7_enchere.dal.CategorieDAO;
+import fr.projet.enchere.projet_grp7_enchere.dal.categorieDAO.CategorieDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

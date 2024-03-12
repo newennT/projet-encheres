@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Enchère - Accueil</title>
+</head>
+<body>
+<H1>Accueil</H1>
+
+<a data-th-href="@{/categories}">Categories</a>
+<a data-th-href="@{/login}">Connexion</a>
+<a data-th-href="@{/logout}">Déconnexion</a>
+
+<p data-th-text="${#ctx.session.currentUser != null} ? ${#ctx.session.currentUser.prenom} : 'Non connecté!'"/>
+
+</body>
+</html>

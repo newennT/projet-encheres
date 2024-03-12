@@ -213,4 +213,27 @@ public class Utilisateur {
         return Objects.hash(getNoUtilisateur(), getPseudo(), getNom(), getPrenom(), getEmail(), getTelephone(),
                 getRue(), getCodePostal(), getVille(), getMotDePasse(), getCredit(), isAdministrateur());
     }
+
+    /**
+     * Generates a string representation of the Utilisateur object for debugging and logging purposes.
+     *
+     * @return A formatted string containing the values of Utilisateur fields.
+     */
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "noUtilisateur=" + noUtilisateur +
+                ", pseudo='" + pseudo + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", email='" + email + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", rue='" + rue + '\'' +
+                ", codePostal='" + codePostal + '\'' +
+                ", ville='" + ville + '\'' +
+                ", motDePasse='" + motDePasse + '\'' +
+                ", credit=" + credit +
+                ", administrateur=" + administrateur +
+                '}';
+    }
 }

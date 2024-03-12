@@ -1,7 +1,7 @@
 package fr.projet.enchere.projet_grp7_enchere.ihm;
 
-import fr.projet.enchere.projet_grp7_enchere.bll.CategorieService;
-import fr.projet.enchere.projet_grp7_enchere.bll.CategorieServiceException;
+import fr.projet.enchere.projet_grp7_enchere.bll.categorieService.CategorieService;
+import fr.projet.enchere.projet_grp7_enchere.bll.categorieService.CategorieServiceException;
 import fr.projet.enchere.projet_grp7_enchere.bo.Categorie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

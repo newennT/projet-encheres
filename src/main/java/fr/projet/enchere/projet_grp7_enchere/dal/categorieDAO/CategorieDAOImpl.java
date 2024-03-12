@@ -1,4 +1,4 @@
-package fr.projet.enchere.projet_grp7_enchere.dal;
+package fr.projet.enchere.projet_grp7_enchere.dal.categorieDAO;
 
 import fr.projet.enchere.projet_grp7_enchere.bo.Categorie;
 import org.springframework.beans.factory.annotation.Autowired;
