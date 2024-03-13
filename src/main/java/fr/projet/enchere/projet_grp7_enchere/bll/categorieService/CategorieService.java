@@ -4,6 +4,7 @@ import fr.projet.enchere.projet_grp7_enchere.bo.Categorie;
 
 import java.util.List;
 
+
 public interface CategorieService {
 
     /**
