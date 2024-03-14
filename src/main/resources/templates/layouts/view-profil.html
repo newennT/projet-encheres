@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Profil</title>
+    </head>
+    <body>
+        <form xmlns:th="http://www.thymeleaf.org"
+              data-th-object="${profil}"
+              method="post">
+            <h1>Profil</h1>
+            <div class="flex-outer">
+                <div>
+                    <label for="inputPseudo">Pseudo :</label>
+                    <input type="text" name="pseudo" id="inputPseudo"
+                           data-th-field="*{pseudo}"
+                           required/>
+                </div>
+                <div>
+                    <label for="inputPrenom">Prénom :</label>
+                    <input type="text" name="prenom" id="inputPrenom"
+                           data-th-field="*{prenom}"
+                           required/>
+                </div>
+                <div>
+                    <label for="inputNom">Nom :</label>
+                    <input type="text" name="nom" id="inputNom"
+                           data-th-field="*{nom}"
+                           required/>
+                </div>
+                <div>
+                    <label for="inputEmail">Email :</label>
+                    <input type="text" name="email" id="inputEmail"
+                           data-th-field="*{email}"
+                           required/>
+                </div>
+                <div>
+                    <label for="inputTelephone">Téléphone :</label>
+                    <input type="text" name="telephone" id="inputTelephone"
+                           data-th-field="*{telephone}"
+                           required/>
+                </div>
+                <div>
+                    <label for="inputRue">Rue :</label>
+                    <input type="text" name="rue" id="inputRue"
+                           data-th-field="*{rue}"
+                           required/>
+                </div>
+                <div>
+                    <label for="inputCP">Code postal :</label>
+                    <input type="text" name="cp" id="inputCP"
+                           data-th-field="*{codePostal}"
+                           required/>
+                </div>
+                <div>
+                    <label for="inputVille">Ville :</label>
+                    <input type="text" name="ville" id="inputVille"
+                           data-th-field="*{ville}"
+                           required/>
+                </div>
+                <div>
+                    <button type="submit">Enregistrer</button>
+                </div>
+                <div>
+                    <button type="submit">Supprimer mon compte</button>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Détails utilisateur</title>
+    </head>
+    <body>
+        <div>
+            <p data-th-text="'Pseudo : ' + ${utilisateur.pseudo}"></p>
+            <p data-th-text="'Nom : ' + ${utilisateur.nom}"></p>
+            <p data-th-text="'Prénom : ' + ${utilisateur.prenom}"></p>
+            <p data-th-text="'Email : ' + ${utilisateur.email}"></p>
+            <p data-th-text="'Téléphone : ' + ${utilisateur.telephone}"></p>
+            <p data-th-text="'Rue : ' + ${utilisateur.rue}"></p>
+            <p data-th-text="'Code postal : ' + ${utilisateur.codePostal}"></p>
+            <p data-th-text="'Ville : ' + ${utilisateur.ville}"></p>
+        </div>
+
+        <div data-th-if="${#ctx.session.currentUser != null && #ctx.session.currentUser == utilisateur}">
+            <button><a data-th-text="Modifier" data-th-href="@{/edit(pseudo=${#ctx.session.currentUser.pseudo})}"></a></button>
+        </div>
+    </body>
+</html>

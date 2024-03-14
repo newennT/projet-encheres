@@ -7,6 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Implementation of the UtilisateurService interface providing business logic for user-related operations.
  */
@@ -39,4 +41,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public Utilisateur trouverParPseudo(String pseudo) {
         return utilisateurDAO.findByPseudo(pseudo);
     }
+
+    @Override
+    public List<Utilisateur> getAll() {
+        return utilisateurDAO.getAll();
+    }
+
 }
