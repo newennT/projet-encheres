@@ -23,5 +23,14 @@ public interface UtilisateurService {
      * @return The Utilisateur object matching the provided pseudo.
      */
     Utilisateur trouverParPseudo(String pseudo);
+
+    /**
+     * Retrieves a Utilisateur record from the database based on the provided email.
+     *
+     * @param email The email of the Utilisateur to be retrieved.
+     * @return The Utilisateur object matching the provided email.
+     */
+    Utilisateur trouverParEmail(String email);
+
     List<Utilisateur> getAll();
 }

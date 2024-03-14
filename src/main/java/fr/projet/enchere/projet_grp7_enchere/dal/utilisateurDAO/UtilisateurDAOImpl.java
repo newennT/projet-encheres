@@ -21,6 +21,7 @@ import java.util.Objects;
 @Repository
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 
+    // SQL REQUESTS
     final String SELECT = "SELECT * FROM UTILISATEURS";
     final String INSERT = "INSERT INTO UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, " +
             "mot_de_passe, credit, administrateur) " +
@@ -28,11 +29,16 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
             ":administrateur)";
     final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo=:pseudo";
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
+    final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=:email";
+
+    private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    public UtilisateurDAOImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
 
     RowMapper<Utilisateur> mapper = (rs, i) -> new Utilisateur(rs.getInt("no_utilisateur"),
             rs.getString("pseudo"),
@@ -52,6 +58,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
      *
      * @return A List of Utilisateur objects.
      */
+    @Override
     public List<Utilisateur> getAll() {
         return jdbcTemplate.query(SELECT, mapper);
     }
@@ -61,6 +68,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
      *
      * @param utilisateur The Utilisateur object to be inserted.
      */
+    @Override
     public void insert(Utilisateur utilisateur) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         BeanPropertySqlParameterSource namedParameters = new BeanPropertySqlParameterSource(utilisateur);
@@ -74,10 +82,35 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
      * @param pseudo The pseudo (username) of the Utilisateur to be retrieved.
      * @return The Utilisateur object matching the provided pseudo.
      */
+    @Override
     public Utilisateur findByPseudo(String pseudo) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("pseudo", pseudo);
-        return namedParameterJdbcTemplate.queryForObject(SELECT_BY_PSEUDO, namedParameters,
+        List<Utilisateur> utilisateurs = namedParameterJdbcTemplate.query(SELECT_BY_PSEUDO, namedParameters,
                 new BeanPropertyRowMapper<>(Utilisateur.class));
+        if (utilisateurs.isEmpty()) {
+            return null;
+        } else {
+            return utilisateurs.get(0);
+        }
+    }
+
+    /**
+     * Retrieves a Utilisateur record from the database based on the provided email.
+     *
+     * @param email The email of the Utilisateur to be retrieved.
+     * @return The Utilisateur object matching the provided email.
+     */
+    @Override
+    public Utilisateur findByEmail(String email) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("email", email);
+        List<Utilisateur> utilisateurs = namedParameterJdbcTemplate.query(SELECT_BY_EMAIL, namedParameters,
+                new BeanPropertyRowMapper<>(Utilisateur.class));
+        if (utilisateurs.isEmpty()) {
+            return null;
+        } else {
+            return utilisateurs.get(0);
+        }
     }
 }

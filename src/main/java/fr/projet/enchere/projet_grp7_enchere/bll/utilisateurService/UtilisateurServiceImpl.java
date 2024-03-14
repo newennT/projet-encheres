@@ -15,17 +15,21 @@ import java.util.List;
 @Service
 public class UtilisateurServiceImpl implements UtilisateurService {
 
-    @Autowired
-    UtilisateurDAO utilisateurDAO;
+    private final UtilisateurDAO utilisateurDAO;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    public UtilisateurServiceImpl(UtilisateurDAO utilisateurDAO, PasswordEncoder passwordEncoder) {
+        this.utilisateurDAO = utilisateurDAO;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     /**
      * Adds a new Utilisateur to the system.
      *
      * @param utilisateur The Utilisateur object to be added.
      */
+    @Override
     @Transactional
     public void ajouterUtilisateur(Utilisateur utilisateur) {
         utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
@@ -38,13 +42,24 @@ public class UtilisateurServiceImpl implements UtilisateurService {
      * @param pseudo The pseudo (username) of the Utilisateur to be retrieved.
      * @return The Utilisateur object matching the provided pseudo.
      */
+    @Override
     public Utilisateur trouverParPseudo(String pseudo) {
         return utilisateurDAO.findByPseudo(pseudo);
+    }
+
+    /**
+     * Retrieves a Utilisateur record from the database based on the provided email.
+     *
+     * @param email The email of the Utilisateur to be retrieved.
+     * @return The Utilisateur object matching the provided email.
+     */
+    @Override
+    public Utilisateur trouverParEmail(String email) {
+        return utilisateurDAO.findByEmail(email);
     }
 
     @Override
     public List<Utilisateur> getAll() {
         return utilisateurDAO.getAll();
     }
-
 }
