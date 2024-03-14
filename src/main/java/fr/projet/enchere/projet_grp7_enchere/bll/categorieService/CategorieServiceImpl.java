@@ -22,4 +22,10 @@ public class CategorieServiceImpl implements CategorieService {
         dao.insert(categorie);
     }
 
+
+    @Override
+    public Categorie getCategorieById(int id) {
+        return dao.getById(id);
+    }
+
 }

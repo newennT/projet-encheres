@@ -18,9 +18,9 @@ public class Article implements Serializable {
     private int prix_initial;
     private int prix_vente;
 
-    private Categorie no_categorie;
+    private Categorie categorie;
 
-    private Utilisateur no_utilisateur;
+    private Utilisateur utilisateur;
 
 
     public Article() {
@@ -30,7 +30,7 @@ public class Article implements Serializable {
         this.nom_article = nom_article;
     }
 
-    public Article(int no_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, Categorie no_categorie) {
+    public Article(int no_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, Categorie categorie, Utilisateur utilisateur) {
         this.no_article = no_article;
         this.nom_article = nom_article;
         this.description = description;
@@ -38,7 +38,8 @@ public class Article implements Serializable {
         this.date_fin_encheres = date_fin_encheres;
         this.prix_initial = prix_initial;
         this.prix_vente = prix_vente;
-        this.no_categorie = no_categorie;
+        this.categorie = categorie;
+        this.utilisateur = utilisateur;
     }
 
     public long getNo_article() {
@@ -97,20 +98,21 @@ public class Article implements Serializable {
         this.prix_vente = prix_vente;
     }
 
-    public Categorie getNo_categorie() {
-        return no_categorie;
+
+    public Categorie getCategorie() {
+        return categorie;
     }
 
-    public void setNo_categorie(Categorie no_categorie) {
-        this.no_categorie = no_categorie;
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
     }
 
-    public Utilisateur getNo_utilisateur() {
-        return no_utilisateur;
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
     }
 
-    public void setNo_utilisateur(Utilisateur no_utilisateur) {
-        this.no_utilisateur = no_utilisateur;
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 
     //Equals et hashCode pour comparer 2 instances de la classe selon leur 'id'

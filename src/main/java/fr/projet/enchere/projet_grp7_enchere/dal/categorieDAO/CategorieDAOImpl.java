@@ -47,4 +47,12 @@ class CategorieDAOImpl implements CategorieDAO{
         return jdbcTemplate.query("SELECT no_categorie, libelle FROM CATEGORIES", rowMapper);
     }
 
+    @Override
+    public Categorie getById(int id) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("id", id);
+
+        return jdbcTemplate.queryForObject("SELECT * FROM CATEGORIES WHERE no_categorie = :id", parameters, rowMapper);
+    }
+
 }
