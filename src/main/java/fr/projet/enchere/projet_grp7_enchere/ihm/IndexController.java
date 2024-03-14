@@ -40,13 +40,4 @@ public class IndexController {
         return "view-index";
     }
 
-    /**
-     * Returns the home view.
-     *
-     * @return The view to display for the home page.
-     */
-    @GetMapping("/static")
-    public String index() {
-        return "view-index";
-    }
 }

@@ -25,22 +25,33 @@ public class ArticleDAOImpl implements ArticleDAO {
     public void insert(Article article) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        System.out.println("---------------------ERREUR : " + article.getNo_utilisateur().getNoUtilisateur());
+        System.out.println("---------------------ID UTILISATEUR : " + article.getUtilisateur().getNoUtilisateur());
+        System.out.println("---------------------nom_article : " + article.getNom_article());
+        System.out.println("---------------------description : " + article.getDescription());
+        System.out.println("---------------------prix_initial : " + article.getPrix_initial());
+        System.out.println("---------------------date_debut_encheres : " + article.getDate_debut_encheres());
+        System.out.println("---------------------date_fin_encheres : " + article.getDate_fin_encheres());
+        System.out.println("---------------------ID CATEGORIE : " + article.getCategorie().getNo_categorie());
+
 
 
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+
+        namedParameters.addValue("categorie", article.getCategorie().getNo_categorie());
+        namedParameters.addValue("no_utilisateur", article.getUtilisateur().getNoUtilisateur());
+
+
         namedParameters.addValue("nom_article", article.getNom_article());
         namedParameters.addValue("description", article.getDescription());
         namedParameters.addValue("prix_initial", article.getPrix_initial());
         namedParameters.addValue("date_debut_encheres", article.getDate_debut_encheres());
         namedParameters.addValue("date_fin_encheres", article.getDate_fin_encheres());
 
-        namedParameters.addValue("no_utilisateur", article.getNo_utilisateur().getNoUtilisateur());
-        namedParameters.addValue("no_categorie", article.getNo_categorie().getNo_categorie());
+
 
 
         jdbcTemplate.update("INSERT INTO ARTICLES_VENDUS (nom_article, description, prix_initial, date_debut_encheres, date_fin_encheres, no_utilisateur, no_categorie) " +
-                "VALUES (:nom_article, :description, :prix_initial, :date_debut_encheres, :date_fin_encheres, :no_utilisateur, :no_categorie)", namedParameters, keyHolder);
+                "VALUES (:nom_article, :description, :prix_initial, :date_debut_encheres, :date_fin_encheres, :no_utilisateur, :categorie)", namedParameters, keyHolder);
 
         if (keyHolder != null && keyHolder.getKey() != null) {
             article.setNo_article(keyHolder.getKey().intValue());
@@ -75,7 +86,7 @@ public class ArticleDAOImpl implements ArticleDAO {
             //Association vers la catégorie
             Categorie categorie = new Categorie();
             categorie.setNo_categorie(rs.getInt("no_categorie"));
-            a.setNo_categorie(categorie);
+            a.setCategorie(categorie);
             return a;
 
         }

@@ -16,5 +16,7 @@ public interface CategorieService {
      * Ajoute une catégorie
      */
     public void addCategorie(Categorie categorie) throws CategorieServiceException;
+
+    public Categorie getCategorieById(int id);
 }
 

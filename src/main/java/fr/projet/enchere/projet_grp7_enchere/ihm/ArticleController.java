@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -46,16 +45,22 @@ public class ArticleController {
     private HttpServletRequest request;
 
     @PostMapping
-    public String valid(Article article, BindingResult errors, Model model) {
+    public String valid(Article article, BindingResult errors, Model model, @RequestParam("categorie") int noCategorie) {
         HttpSession session = request.getSession(false);
 
         Utilisateur currentUser = (Utilisateur) session.getAttribute("currentUser");
+
+        // Récupérer la catégorie sélectionnée depuis la requête HTTP
+        Categorie categorie = categorieService.getCategorieById(noCategorie);
 
         if(errors.hasErrors()) {
             return "article";
         }
         try {
-            article.setNo_utilisateur(currentUser);
+            article.setUtilisateur(currentUser);
+            article.setCategorie(categorie);
+
+
             if (article.getDate_debut_encheres() == null){
                 article.setDate_debut_encheres(LocalDate.now());
             }
