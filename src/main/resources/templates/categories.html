@@ -5,7 +5,7 @@
     <title>Liste des categories</title>
 </head>
 <body>
-<a data-th-href="@{/static}">Accueil</a>
+<a data-th-href="@{/}">Accueil</a>
 <p data-th-each="categorie : ${lstCategories}">
     <span data-th-text="${categorie.libelle}"/>
 </p>
