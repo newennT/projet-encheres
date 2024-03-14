@@ -1,20 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="fr">
-<head>
-    <title>ENI Enchères - Connexion</title>
-</head>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="~{/layouts/layout :: layout(
+            pageContent=~{:: .main-content},
+            pageTitle=~{:: title},
+            additionalCss=~{}
+        )}"
+>
+
+<title>ENI Enchères - Connexion</title>
+
 <body>
-<H1>Connexion</H1>
+<main class="main-content">
+    <H1>Connexion</H1>
 
-<a data-th-href="@{/static}">Accueil</a>
-<p data-th-text="${#ctx.session.currentUser != null} ? ${#ctx.session.currentUser} : 'Non connecté !'"/>
+    <a data-th-href="@{/static}">Accueil</a>
+    <p data-th-text="${#ctx.session.currentUser != null} ? ${#ctx.session.currentUser} : 'Non connecté !'"/>
 
-<form th:action="@{/login}" method="post">
-    <label for="username">Pseudonyme</label>:
-    <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
-    <label for="password">Mot de passe</label>:
-    <input type="password" id="password" name="password" /> <br />
-    <input type="submit" value="Connexion" />
-</form>
+    <form th:action="@{/login}" method="post" class="form-connexion">
+        <label for="username">Pseudonyme</label>
+        <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" /> <br />
+        <div class="se-souvenir"><input type="checkbox" name="se-souvenir" id="" /><label>Se souvenir de moi</label></div>
+        <p class="mdp-oublie"><a href="#">Mot de passe oublié ?</a></p>
+        </div>
+        <button type="submit" value="Connexion" class="btn-primary btn-primary-fondbleu">Connexion</button>
+    </form>
+</main>
 </body>
 </html>

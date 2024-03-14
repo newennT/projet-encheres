@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="fr">
-<!--xmlns:th=" http://www.thymeleaf.org"
-th:replace="~{/layouts/layout :: layout(
-pageContent=~{:: .main-content},
-pageTitle=~{:: title},
-additionalCss=~{}
-)}"-->
-<head>
-    <title>ENI Enchères - Accueil</title>
-</head>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="~{/layouts/layout :: layout(
+            pageContent=~{:: .main-content},
+            pageTitle=~{:: title},
+            additionalCss=~{}
+        )}"
+>
+
+<title>ENI Enchères - Accueil</title>
+
 <body>
 <main class="main-content">
     <H1>Accueil</H1>
+
 
     <a data-th-href="@{/categories}">Categories</a>
     <a data-th-href="@{/article}">article</a>
@@ -20,6 +22,22 @@ additionalCss=~{}
     <a data-th-href="@{/inscription}">Inscription</a>
 
     <p data-th-text="${#ctx.session.currentUser != null} ? ${#ctx.session.currentUser.prenom} : 'Non connecté!'"/>
+
+    <section class="section-filtres">
+        <h2>Rechercher une enchère</h2>
+        <form class="filtres">
+            <input type="text" name="" id="" placeholder="Le nom de l'article contient...">
+            <select>
+                <option>Informatique</option>
+                <option>Ameublement</option>
+                <option>Vêtements</option>
+                <option>Sport et loisirs</option>
+            </select>
+            <button type="submit" class="btn-primary btn-primary-fondbleu">Rechercher</button>
+        </form>
+    </section>
 </main>
 </body>
 </html>
+
+
