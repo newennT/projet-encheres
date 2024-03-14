@@ -2,6 +2,8 @@ package fr.projet.enchere.projet_grp7_enchere.bll.utilisateurService;
 
 import fr.projet.enchere.projet_grp7_enchere.bo.Utilisateur;
 
+import java.util.List;
+
 /**
  * Interface defining the contract for the business logic layer operations related to Utilisateur (User) entities.
  */
@@ -21,4 +23,5 @@ public interface UtilisateurService {
      * @return The Utilisateur object matching the provided pseudo.
      */
     Utilisateur trouverParPseudo(String pseudo);
+    List<Utilisateur> getAll();
 }
