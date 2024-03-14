@@ -33,6 +33,7 @@ public class ConfigSecurity {
         // Authorization rules - Allow access without authentication
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers("/").permitAll();
+            auth.requestMatchers("/static").permitAll();
             auth.requestMatchers("/inscription").permitAll();
 
             auth.requestMatchers("/css/*").permitAll()

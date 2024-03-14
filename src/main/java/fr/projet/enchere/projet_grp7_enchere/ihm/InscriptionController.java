@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class InscriptionController {
+    private final UtilisateurService utilisateurService;
 
     @Autowired
-    UtilisateurService utilisateurService;
+    public InscriptionController(UtilisateurService utilisateurService) {
+        this.utilisateurService = utilisateurService;
+    }
 
     /**
      * Handles GET requests for the registration page.
@@ -36,27 +39,41 @@ public class InscriptionController {
     /**
      * Handles POST requests for user registration.
      *
-     * @param utilisateur    The user object submitted from the registration form.
-     * @param bindingResult  BindingResult for validation errors.
+     * @param utilisateur   The user object submitted from the registration form.
+     * @param bindingResult BindingResult for validation errors.
      * @return Redirect to the index page if registration is successful, otherwise return to the registration page.
      */
     @PostMapping("/inscription")
     public String inscription(@Valid @ModelAttribute("utilisateur") Utilisateur utilisateur, BindingResult bindingResult) {
-        // Check if password confirmation matches
-        if (!utilisateur.getMotDePasse().equals(utilisateur.getMotDePasseConfirmation())) {
-            // Add error message if password confirmation does not match
-            bindingResult.rejectValue("motDePasseConfirmation", "motDePasseConfirmation");
-        }
-
         // Check for validation errors
         if (bindingResult.hasErrors()) {
-            // Return to the registration page if there are errors
             return "view-inscription";
         } else {
-            // Add the user to the database if no validation errors are found
+            // Check if the pseudo already exists in the database
+            Utilisateur similarUtilisateur = utilisateurService.trouverParPseudo(utilisateur.getPseudo());
+            if (similarUtilisateur != null) {
+                bindingResult.rejectValue("pseudo", "similarPseudonyme");
+                return "view-inscription";
+            }
+
+            // Check if the email already exists in the database
+            Utilisateur similarEmail = utilisateurService.trouverParEmail(utilisateur.getEmail());
+            if (similarEmail != null) {
+                bindingResult.rejectValue("email", "similarEmail");
+                return "view-inscription";
+            }
+
+            // Check if password confirmation matches
+            if (!utilisateur.getMotDePasse().equals(utilisateur.getMotDePasseConfirmation())) {
+                bindingResult.rejectValue("motDePasseConfirmation", "motDePasseConfirmation");
+                return "view-inscription";
+            }
+
+            utilisateur.setCredit(100);
             utilisateurService.ajouterUtilisateur(utilisateur);
-            // Redirect to the index page
+
             return "redirect:/view-index";
         }
     }
+
 }

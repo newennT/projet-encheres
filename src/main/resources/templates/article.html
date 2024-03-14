@@ -12,12 +12,13 @@
 
 
 <body>
-    <main class="main-content"
-        <h1 style="color:red" data-th-text="${erreur}"/>
-        <form data-th-action="@{/article}" data-th-object="${article}" method="post">
-            <label for="nom_article">Nom</label>
-            <input type="text" id="nom_article" data-th-field="*{nom_article}"/>
-            <span data-th-if="${#fields.hasErrors('nom_article')}" data-th-errors="*{nom_article}"/> <br>
+<main class="main-content">
+<a data-th-href="@{/}">Accueil</a>
+<h1 style="color:red" data-th-text="${erreur}"/>
+<form data-th-action="@{/article}" data-th-object="${article}" method="post">
+    <label for="nom_article">Nom</label>
+    <input type="text" id="nom_article" data-th-field="*{nom_article}"/>
+    <span data-th-if="${#fields.hasErrors('nom_article')}" data-th-errors="*{nom_article}"/> <br>
 
             <label for="description">Description</label>
             <input type="text" id="description" data-th-field="*{description}"/>

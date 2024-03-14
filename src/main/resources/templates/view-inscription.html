@@ -14,8 +14,8 @@
     <main class="main-content">
         <H1>Connexion</H1>
 
-        <a data-th-href="@{/static}">Accueil</a>
-        <p data-th-text="${#ctx.session.currentUser != null} ? ${#ctx.session.currentUser} : 'Non connecté !'"/>
+<a data-th-href="@{/}">Accueil</a>
+<p data-th-text="${#ctx.session.currentUser != null} ? ${#ctx.session.currentUser} : 'Non connecté !'"/>
 
         <form data-th-action="@{/inscription}" method="post" data-th-object="${utilisateur} ">
             <label for="username">Pseudonyme :</label>
