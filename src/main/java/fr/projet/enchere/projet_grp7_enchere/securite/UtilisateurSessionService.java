@@ -1,5 +1,6 @@
 package fr.projet.enchere.projet_grp7_enchere.securite;
 
+import fr.projet.enchere.projet_grp7_enchere.bll.utilisateurService.UtilisateurService;
 import fr.projet.enchere.projet_grp7_enchere.bo.Utilisateur;
 import fr.projet.enchere.projet_grp7_enchere.dal.utilisateurDAO.UtilisateurDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class UtilisateurSessionService implements UserDetailsService {
 
     @Autowired
-    private UtilisateurDAO utilisateurDAO;
+    private UtilisateurService utilisateurService;
 
     /**
      * Loads user details by username (pseudo) during authentication.
@@ -28,7 +29,7 @@ public class UtilisateurSessionService implements UserDetailsService {
     public UserDetails loadUserByUsername(String pseudo) {
         Utilisateur utilisateur;
         try {
-            utilisateur = utilisateurDAO.findByPseudo(pseudo);
+            utilisateur = utilisateurService.trouverParPseudo(pseudo);
             if (utilisateur == null) {
                 throw new UsernameNotFoundException(pseudo);
             }

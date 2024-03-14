@@ -53,7 +53,6 @@ public class UtilisateurSession implements UserDetails {
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        //TODO
         return null;
     }
 

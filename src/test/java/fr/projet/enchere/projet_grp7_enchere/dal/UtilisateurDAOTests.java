@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * This class contains JUnit tests for the UtilisateurDAO class.
  * It uses the SpringBootTest annotation to load the Spring application context.
@@ -26,6 +28,12 @@ public class UtilisateurDAOTests {
     @Test
     @Transactional
     void contextLoads() {
+
+    }
+
+    @Test
+    @Transactional
+    void TestInsert() {
         // Creating test Utilisateur objects
         Utilisateur utilisateur1 = new Utilisateur("pseudo-test", "nom-test", "prenom-test",
                 "email-test", "0781769982", "rue-test", "35200", "ville-test",

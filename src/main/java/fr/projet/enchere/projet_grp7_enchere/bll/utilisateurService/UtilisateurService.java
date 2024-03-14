@@ -13,4 +13,12 @@ public interface UtilisateurService {
      * @param utilisateur The Utilisateur object to be added.
      */
     void ajouterUtilisateur(Utilisateur utilisateur);
+
+    /**
+     * Retrieves a Utilisateur record from the database based on the provided pseudo (username).
+     *
+     * @param pseudo The pseudo (username) of the Utilisateur to be retrieved.
+     * @return The Utilisateur object matching the provided pseudo.
+     */
+    Utilisateur trouverParPseudo(String pseudo);
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!--xmlns:th=" http://www.thymeleaf.org"
+th:replace="~{/layouts/layout :: layout(
+pageContent=~{:: .main-content},
+pageTitle=~{:: title},
+additionalCss=~{}
+)}"-->
+<head>
+    <title>ENI Enchères - Accueil</title>
+</head>
+<body>
+<main class="main-content">
+    <H1>Accueil</H1>
+
+    <a data-th-href="@{/categories}">Categories</a>
+    <a data-th-href="@{/article}">article</a>
+    <a data-th-href="@{/login}">Connexion</a>
+    <a data-th-href="@{/logout}">Déconnexion</a>
+    <a data-th-href="@{/inscription}">Inscription</a>
+
+    <p data-th-text="${#ctx.session.currentUser != null} ? ${#ctx.session.currentUser.prenom} : 'Non connecté!'"/>
+</main>
+</body>
+</html>

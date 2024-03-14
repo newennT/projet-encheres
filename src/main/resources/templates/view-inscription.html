@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Enchère - Connexion</title>
+</head>
+<body>
+<H1>Connexion</H1>
+
+<a data-th-href="@{/static}">Accueil</a>
+<p data-th-text="${#ctx.session.currentUser != null} ? ${#ctx.session.currentUser} : 'Non connecté !'"/>
+
+<form data-th-action="@{/inscription}" method="post" data-th-object="${utilisateur} ">
+    <label for="username">Pseudonyme :</label>
+    <input type="text" id="username" name="username" autofocus="autofocus" data-th-field="*{pseudo}"/>
+    <br/>
+    <span style="color: red" data-th-if="${#fields.hasErrors('pseudo')}" data-th-errors="*{pseudo}"></span>
+    <br/>
+
+    <label for="nom">Nom :</label>
+    <input type="text" id="nom" name="nom" autofocus="autofocus" data-th-field="*{nom}"/>
+    <br/>
+    <span style="color: red" data-th-if="${#fields.hasErrors('nom')}" data-th-errors="*{nom}"></span>
+    <br/>
+
+    <label for="prenom">Prénom :</label>
+    <input type="text" id="prenom" name="prenom" autofocus="autofocus" data-th-field="*{prenom}"/>
+    <br/>
+    <span style="color: red" data-th-if="${#fields.hasErrors('prenom')}" data-th-errors="*{prenom}"></span>
+    <br/>
+
+    <label for="email">Email :</label>
+    <input type="email" id="email" name="email" autofocus="autofocus" data-th-field="*{email}"/>
+    <br/>
+    <span style="color: red" data-th-if="${#fields.hasErrors('email')}" data-th-errors="*{email}"></span>
+    <br/>
+
+    <label for="telephone">Téléphone :</label>
+    <input type="tel" id="telephone" name="telephone" autofocus="autofocus" data-th-field="*{telephone}"/>
+    <br/>
+    <span style="color: red" data-th-if="${#fields.hasErrors('telephone')}" data-th-errors="*{telephone}"></span>
+    <br/>
+
+    <label for="rue">Rue :</label>
+    <input type="text" id="rue" name="rue" autofocus="autofocus" data-th-field="*{rue}"/>
+    <br/>
+    <span style="color: red" data-th-if="${#fields.hasErrors('rue')}" data-th-errors="*{rue}"></span>
+    <br/>
+
+    <label for="codePostal">Code Postal :</label>
+    <input type="text" id="codePostal" name="codePostal" autofocus="autofocus" data-th-field="*{codePostal}"/>
+    <br/>
+    <span style="color: red" data-th-if="${#fields.hasErrors('codePostal')}" data-th-errors="*{codePostal}"></span>
+    <br/>
+
+    <label for="ville">Ville :</label>
+    <input type="text" id="ville" name="ville" autofocus="autofocus" data-th-field="*{ville}"/>
+    <br/>
+    <span style="color: red" data-th-if="${#fields.hasErrors('ville')}" data-th-errors="*{ville}"></span>
+    <br/>
+
+    <label for="password">Mot de passe :</label>
+    <input type="password" id="password" name="password" data-th-field="*{motDePasse}"/>
+    <br/>
+    <span style="color: red" data-th-if="${#fields.hasErrors('motDePasse')}" data-th-errors="*{motDePasse}"></span>
+    <br/>
+
+    <label for="passwordConfirmation">Confirmer le mot de passe :</label>
+    <input type="password" id="passwordConfirmation" name="passwordConfirmation" data-th-field="*{motDePasseConfirmation}">
+    <br/>
+    <span style="color: red" data-th-if="${#fields.hasErrors('motDePasseConfirmation')}" data-th-errors="*{motDePasseConfirmation}"></span>
+    <br/>
+
+    <input type="submit" value="Inscription"/>
+</form>
+
+</body>
+</html>

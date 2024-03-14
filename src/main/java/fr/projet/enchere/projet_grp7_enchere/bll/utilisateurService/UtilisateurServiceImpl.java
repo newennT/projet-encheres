@@ -26,10 +26,17 @@ public class UtilisateurServiceImpl implements UtilisateurService {
      */
     @Transactional
     public void ajouterUtilisateur(Utilisateur utilisateur) {
-        // Password encoding before storing in the database
         utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
-
-        // Database insertion
         utilisateurDAO.insert(utilisateur);
+    }
+
+    /**
+     * Retrieves a Utilisateur record from the database based on the provided pseudo (username).
+     *
+     * @param pseudo The pseudo (username) of the Utilisateur to be retrieved.
+     * @return The Utilisateur object matching the provided pseudo.
+     */
+    public Utilisateur trouverParPseudo(String pseudo) {
+        return utilisateurDAO.findByPseudo(pseudo);
     }
 }

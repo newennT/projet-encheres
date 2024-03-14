@@ -1,7 +1,8 @@
-package fr.projet.enchere.projet_grp7_enchere;
+package fr.projet.enchere.projet_grp7_enchere.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -19,5 +20,17 @@ public class Conf {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * Defines the message source bean.
+     *
+     * @return A ResourceBundleMessageSource for loading messages from properties files.
+     */
+    @Bean
+    public ResourceBundleMessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("messages_fr");
+        return messageSource;
     }
 }

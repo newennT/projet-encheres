@@ -2,8 +2,12 @@ package fr.projet.enchere.projet_grp7_enchere.ihm;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Objects;
 
 /**
  * Controller class for handling login-related requests.
@@ -28,8 +32,13 @@ public class LoginController {
      * @return The logical view name for the login page with an error message.
      */
     @RequestMapping("/login-error")
-    public String authentificationError(Model model) {
+    public String authenticationError(@RequestParam(name = "error", required = false) String error, Model model) {
         model.addAttribute("loginError", true);
+        if ("invalid_credentials".equals(error)) {
+            model.addAttribute("message", "Nom d'utilisateur ou mot de passe incorrect.");
+        } else {
+            model.addAttribute("message", "Une erreur inconnue s'est produite. Veuillez réessayer plus tard.");
+        }
         return "view-login";
     }
 }

@@ -37,7 +37,7 @@ public class UtilisateurServiceTests {
         utilisateurService.ajouterUtilisateur(utilisateur1);
 
         // Retrieving Utilisateur by pseudo and printing it
-        System.out.println(utilisateurDAO.findByPseudo("pseudo-test"));
+        System.out.println(utilisateurService.trouverParPseudo("pseudo-test"));
     }
 
 }

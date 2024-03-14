@@ -1,22 +1,52 @@
 package fr.projet.enchere.projet_grp7_enchere.bo;
 
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 import java.util.Objects;
 
 /**
  * Entity class representing a user in the system.
  */
+
 public class Utilisateur {
     private long noUtilisateur;
+
+    @Size(min = 4, max = 20, message = "{validation.pseudo.size}")
+    @Pattern(regexp = "^[a-zA-Z0-9_-]*$", message = "{validation.pseudo.pattern}")
     private String pseudo;
+
+    @Size(min = 4, max = 20, message = "{validation.nom.size}")
+    @Pattern(regexp = "^[a-zA-Z-]+$", message = "{validation.nom.pattern}")
     private String nom;
+
+    @Size(min = 4, max = 20, message = "{validation.prenom.size}")
+    @Pattern(regexp = "^[a-zA-Z-]+$", message = "{validation.prenom.pattern}")
     private String prenom;
+
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "{validation.email.pattern}")
     private String email;
+
+    @Pattern(regexp = "^0[1-9]([-. ]?[0-9]{2}){4}$", message = "{validation.telephone.pattern}")
     private String telephone;
+
+    @Pattern(regexp = "^[a-zA-Z0-9\\s,'-]*$", message = "{validation.rue.pattern}")
     private String rue;
+
+    @Pattern(regexp = "^\\d{5}$", message = "{validation.codePostal.pattern}")
     private String codePostal;
+
+    @Size(min = 4, max = 20, message = "{validation.ville.size}")
+    @Pattern(regexp = "^[a-zA-Z-]+$", message = "{validation.ville.pattern}")
     private String ville;
+
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "{validation.motDePasse.pattern}")
     private String motDePasse;
+
+    private String motDePasseConfirmation;
+
     private int credit;
+
     private boolean administrateur;
 
     /**
@@ -167,6 +197,14 @@ public class Utilisateur {
 
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
+    }
+
+    public String getMotDePasseConfirmation() {
+        return motDePasseConfirmation;
+    }
+
+    public void setMotDePasseConfirmation(String motDePasseConfirmation) {
+        this.motDePasseConfirmation = motDePasseConfirmation;
     }
 
     public int getCredit() {
