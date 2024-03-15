@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        lang="en"
+        th:fragment="layout(pageContent, pageTitle, additionalCss)"
+>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title th:replace="${pageTitle} ?: ~{}"></title>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <th:block th:replace="${additionalCss} ?: ~{}"></th:block>
+    <script src="https://kit.fontawesome.com/fdd82b6672.js" crossorigin="anonymous" defer></script>
 </head>
 <body>
-$END$
+<header th:replace="~{/fragments/fragment-header :: fragment-header}"></header>
+
+<main th:replace="${pageContent} ?: ~{}"></main>
+
+<footer th:replace="~{/fragments/fragment-footer :: fragment-footer}"></footer>
 </body>
 </html>

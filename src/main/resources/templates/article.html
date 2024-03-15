@@ -12,23 +12,32 @@
 
 
 <body>
-<a data-th-href="@{/}">Accueil</a>
-<h1 style="color:red" data-th-text="${erreur}"/>
-<form data-th-action="@{/article}" data-th-object="${article}" method="post">
-    <label for="nom_article">Nom</label>
-    <input type="text" id="nom_article" data-th-field="*{nom_article}"/>
-    <span data-th-if="${#fields.hasErrors('nom_article')}" data-th-errors="*{nom_article}"/> <br>
+    <main class="main-content">
+        <a data-th-href="@{/}">Accueil</a>
+        <h1 style="color:red" data-th-text="${erreur}"/>
+
+        <h1>Vendre un article</h1>
+
+        <form data-th-action="@{/article}" data-th-object="${article}" method="post" class="nouvel-article">
+            <div class="image-article">
+                <p>Photos de l'article</p>
+                <input type="file" name="" id="">
+            </div>
+
+            <div class="infos-article">
+            <label for="nom_article">Nom</label>
+            <input type="text" id="nom_article" data-th-field="*{nom_article}"/>
+            <span data-th-if="${#fields.hasErrors('nom_article')}" data-th-errors="*{nom_article}"/> <br>
 
             <label for="description">Description</label>
             <input type="text" id="description" data-th-field="*{description}"/>
             <span data-th-if="${#fields.hasErrors('description')}" data-th-errors="*{description}"/> <br>
 
-            Categorie<select name="categorie">
-            <option data-th-each="categories : ${lstCategories}"
-                    data-th-text="${categories.libelle}" data-th-value="${categories.no_categorie}"></option>
-        </select> <br>
-
-            <p>Photos de l'article</p> <br>
+            Categorie
+            <select name="categorie">
+                <option data-th-each="categories : ${lstCategories}"
+                        data-th-text="${categories.libelle}" data-th-value="${categories.no_categorie}"></option>
+            </select> <br>
 
             <label for="prix_initial">Mise a prix</label>
             <input type="number" id="prix_initial" data-th-field="*{prix_initial}"/>
@@ -43,22 +52,37 @@
             <span data-th-if="${#fields.hasErrors('date_fin_encheres')}" data-th-errors="*{date_fin_encheres}"/> <br>
 
 
+                <div class="retrait-article">
+                    <h2>Retrait de l'article</h2>
 
-            <input type ="submit" value="ajouter"/>
+                    <label for="">Rue</label>
+                    <input type="text" name="" id="">
+
+                    <label for="">Code postal</label>
+                    <input type="text" name="" id="">
+
+                    <label for="">Ville</label>
+                    <input type="text" name="" id="">
+                </div>
+
+
+                <button type ="submit" value="ajouter" class="btn-primary btn-primary-fondblanc">Ajouter</button>
+                <button class="btn-secondary"><a href="@{/}">Annuler</a></button>
+            </div>
         </form>
-        <h1>Liste Articles</h1>
-        <p data-th-each="article : ${lstArticles}">
-            <span data-th-text="${article.nom_article}"/>
-            <span data-th-text="${article.description}"/>
-            <span data-th-text="${article.categorie}"/>
-            <span data-th-text="${article.utilisateur}"/>
-            <span data-th-text="${article.prix_initial}"/>
-        </p>
-    <input type="submit" value="ajouter"/>
-</form>
 
 
-</main>
+                <h1>Liste Articles</h1>
+                <p data-th-each="article : ${lstArticles}">
+                    <span data-th-text="${article.nom_article}"/>
+                    <span data-th-text="${article.description}"/>
+                    <span data-th-text="${article.categorie}"/>
+                    <span data-th-text="${article.utilisateur}"/>
+                    <span data-th-text="${article.prix_initial}"/>
+                </p>
+
+
+    </main>
 
 </body>
 </html>

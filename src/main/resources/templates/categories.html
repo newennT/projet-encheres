@@ -1,24 +1,34 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="ISO-8859-1">
-    <title>Liste des categories</title>
-</head>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="~{/layouts/layout :: layout(
+            pageContent=~{:: .main-content},
+            pageTitle=~{:: title},
+            additionalCss=~{}
+        )}"
+>
+
+<title>Catégories</title>
 <body>
-<a data-th-href="@{/}">Accueil</a>
-<p data-th-each="categorie : ${lstCategories}">
-    <span data-th-text="${categorie.libelle}"/>
-</p>
 
+    <main class="main-content">
+        <a data-th-href="@{/}">Accueil</a>
 
-<h1 style="color:red" data-th-text="${erreur}"/>
-<form data-th-action="@{/categories}" data-th-object="${categorie}" method="post">
-    <label for="libelle">libelle</label>
-    <input type="text" id="libelle" data-th-field="*{libelle}"/>
-    <span data-th-if="${#fields.hasErrors('libelle')}" data-th-errors="*{libelle}"/> <br>
+        <h1>Cat�gories</h1>
 
-    <input type="submit" value="ajouter"/>
-</form>
+        <p data-th-each="categorie : ${lstCategories}">
+            <span data-th-text="${categorie.libelle}"/>
+        </p>
 
+        <h1 style="color:red" data-th-text="${erreur}"/>
+
+        <form data-th-action="@{/categories}" data-th-object="${categorie}" method="post">
+            <label for="libelle">Libell�</label>
+            <input type="text" id="libelle" data-th-field="*{libelle}"/>
+            <span data-th-if="${#fields.hasErrors('libelle')}" data-th-errors="*{libelle}"/> <br>
+
+            <button type="submit" value="ajouter" class="btn-primary btn-primary-fondblanc">Ajouter</button>
+        </form>
+    </main>
 </body>
 </html>

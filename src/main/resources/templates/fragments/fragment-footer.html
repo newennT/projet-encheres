@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<footer xmlns:th="http://www.thymeleaf.org" th:fragment="fragment-footer">
+    <nav>
+        <div class="texte-footer">
+            <ul>
+                <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/}">Liste des enchères</a></li>
+                <li th:if="${#ctx.session.currentUser == null}"><a data-th-href="@{/login}">Se connecter</a></li>
+                <li th:if="${#ctx.session.currentUser == null}"><a data-th-href="@{/inscription}">S'inscrire</a></li>
+                <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/article}">Vendre un article</a></li>
+                <li th:if="${#ctx.session.currentUser != null}">Mon profil</li>
+            </ul>
+        </div>
+
+        <div class="img-footer">
+            <a data-th-href="@{/}"><img th:href="@{/}" th:src="@{/images/logo.png}" alt="ENI Enchères"/></a>
+        </div>
+    </nav>
+</footer>
