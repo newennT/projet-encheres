@@ -77,5 +77,9 @@ public class ArticleController {
         return "redirect:/article";
     }
 
+    @GetMapping("/detail")
+    public String showArticleDetail(){
+        return "view-article-detail";
+    }
 
 }

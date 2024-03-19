@@ -1,7 +1,9 @@
 package fr.projet.enchere.projet_grp7_enchere.ihm;
 
 import fr.projet.enchere.projet_grp7_enchere.bll.utilisateurService.UtilisateurService;
+import fr.projet.enchere.projet_grp7_enchere.bll.categorieService.CategorieService;
 import fr.projet.enchere.projet_grp7_enchere.bo.Utilisateur;
+import fr.projet.enchere.projet_grp7_enchere.bo.Categorie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +21,13 @@ import java.util.List;
 public class IndexController {
 
     private final UtilisateurService utilisateurService;
+    private final CategorieService categorieService;
 
     @Autowired
-    public IndexController(UtilisateurService utilisateurService) {
+    public IndexController(UtilisateurService utilisateurService, CategorieService categorieService) {
+
         this.utilisateurService = utilisateurService;
+        this.categorieService = categorieService;
     }
 
     /**
@@ -36,6 +41,9 @@ public class IndexController {
         System.out.println("\nAll users: ");
         List<Utilisateur> utilisateurs = utilisateurService.getAll();
         model.addAttribute("utilisateurs", utilisateurs);
+
+        List<Categorie> categories = categorieService.getAll();
+        model.addAttribute("lstCategories", categories);
 
         return "view-index";
     }
