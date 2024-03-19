@@ -43,6 +43,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
         namedParameters.addValue("nom_article", article.getNom_article());
         namedParameters.addValue("description", article.getDescription());
+        namedParameters.addValue("article_img", article.getArticle_img());
         namedParameters.addValue("prix_initial", article.getPrix_initial());
         namedParameters.addValue("date_debut_encheres", article.getDate_debut_encheres());
         namedParameters.addValue("date_fin_encheres", article.getDate_fin_encheres());
@@ -50,8 +51,8 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 
 
-        jdbcTemplate.update("INSERT INTO ARTICLES_VENDUS (nom_article, description, prix_initial, date_debut_encheres, date_fin_encheres, no_utilisateur, no_categorie) " +
-                "VALUES (:nom_article, :description, :prix_initial, :date_debut_encheres, :date_fin_encheres, :no_utilisateur, :categorie)", namedParameters, keyHolder);
+        jdbcTemplate.update("INSERT INTO ARTICLES_VENDUS (nom_article, description, article_img, prix_initial, date_debut_encheres, date_fin_encheres, no_utilisateur, no_categorie) " +
+                "VALUES (:nom_article, :description, :article_img, :prix_initial, :date_debut_encheres, :date_fin_encheres, :no_utilisateur, :categorie)", namedParameters, keyHolder);
 
         if (keyHolder != null && keyHolder.getKey() != null) {
             article.setNo_article(keyHolder.getKey().intValue());
@@ -65,7 +66,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
     @Override
     public List<Article> getAll() {
-        return jdbcTemplate.query("SELECT no_article, nom_article, description, prix_initial, date_debut_encheres, date_fin_encheres, no_utilisateur, no_categorie FROM ARTICLES_VENDUS", new CategorieRowMapper());
+        return jdbcTemplate.query("SELECT no_article, nom_article, description, article_img, prix_initial, date_debut_encheres, date_fin_encheres, no_utilisateur, no_categorie FROM ARTICLES_VENDUS", new CategorieRowMapper());
     }
 
     /**
@@ -78,6 +79,7 @@ public class ArticleDAOImpl implements ArticleDAO {
             a.setNo_article(rs.getInt("no_article"));
             a.setNom_article(rs.getString("nom_article"));
             a.setDescription(rs.getString("description"));
+            a.setArticle_img(rs.getString("article_img"));
             a.setPrix_initial(rs.getInt("prix_initial"));
             a.setDate_debut_encheres(rs.getDate("date_debut_encheres").toLocalDate());
             a.setDate_fin_encheres(rs.getDate("date_fin_encheres").toLocalDate());

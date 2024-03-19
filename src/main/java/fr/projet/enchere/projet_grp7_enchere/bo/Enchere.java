@@ -9,8 +9,10 @@ import java.util.Objects;
 public class Enchere implements Serializable {
     private long no_enchere;
 
-    Article no_article;
-    Utilisateur no_utilisateur;
+    Article article;
+    Utilisateur utilisateur;
+
+    Retrait retrait;
 
     private LocalDate date_enchere;
     private int montant_enchere;
@@ -18,10 +20,10 @@ public class Enchere implements Serializable {
     public Enchere() {
     }
 
-    public Enchere(int no_enchere, Article no_article, Utilisateur no_utilisateur, LocalDate date_enchere, int montant_enchere) {
-        this.no_enchere = no_enchere;
-        this.no_article = no_article;
-        this.no_utilisateur = no_utilisateur;
+    public Enchere(Article article, Utilisateur utilisateur, Retrait retrait, LocalDate date_enchere, int montant_enchere) {
+        this.article = article;
+        this.utilisateur = utilisateur;
+        this.retrait = retrait;
         this.date_enchere = date_enchere;
         this.montant_enchere = montant_enchere;
     }
@@ -34,20 +36,29 @@ public class Enchere implements Serializable {
         this.no_enchere = no_enchere;
     }
 
-    public Article getNo_article() {
-        return no_article;
+
+    public Article getArticle() {
+        return article;
     }
 
-    public void setNo_article(Article no_article) {
-        this.no_article = no_article;
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
-    public Utilisateur getNo_utilisateur() {
-        return no_utilisateur;
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
     }
 
-    public void setNo_utilisateur(Utilisateur no_utilisateur) {
-        this.no_utilisateur = no_utilisateur;
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public Retrait getRetrait() {
+        return retrait;
+    }
+
+    public void setRetrait(Retrait retrait) {
+        this.retrait = retrait;
     }
 
     public LocalDate getDate_enchere() {
@@ -69,7 +80,7 @@ public class Enchere implements Serializable {
     //Equals et hashCode pour comparer 2 instances de la classe selon leur 'id'
     @Override
     public int hashCode() {
-        return Objects.hash(no_article);
+        return Objects.hash(article);
     }
 
     @Override

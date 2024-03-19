@@ -4,7 +4,7 @@ package fr.projet.enchere.projet_grp7_enchere.bo;
 import java.io.Serializable;
 
 public class Retrait implements Serializable {
-   Article no_article;
+   private long no_retrait;
 
    private String rue;
    private String code_postal;
@@ -13,19 +13,19 @@ public class Retrait implements Serializable {
    public Retrait() {
    }
 
-   public Retrait(Article no_article, String rue, String code_postal, String ville) {
-      this.no_article = no_article;
+   public Retrait(long no_retrait, String rue, String code_postal, String ville) {
+      this.no_retrait = no_retrait;
       this.rue = rue;
       this.code_postal = code_postal;
       this.ville = ville;
    }
 
-   public Article getNo_article() {
-      return no_article;
+   public long getNo_retrait() {
+      return no_retrait;
    }
 
-   public void setNo_article(Article no_article) {
-      this.no_article = no_article;
+   public void setNo_retrait(long no_retrait) {
+      this.no_retrait = no_retrait;
    }
 
    public String getRue() {

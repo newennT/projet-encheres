@@ -18,6 +18,8 @@ public class Article implements Serializable {
     private int prix_initial;
     private int prix_vente;
 
+    private String article_img;
+
     private Categorie categorie;
 
     private Utilisateur utilisateur;
@@ -30,7 +32,7 @@ public class Article implements Serializable {
         this.nom_article = nom_article;
     }
 
-    public Article(int no_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, Categorie categorie, Utilisateur utilisateur) {
+    public Article(int no_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String article_img, Categorie categorie, Utilisateur utilisateur) {
         this.no_article = no_article;
         this.nom_article = nom_article;
         this.description = description;
@@ -38,6 +40,7 @@ public class Article implements Serializable {
         this.date_fin_encheres = date_fin_encheres;
         this.prix_initial = prix_initial;
         this.prix_vente = prix_vente;
+        this.article_img = article_img;
         this.categorie = categorie;
         this.utilisateur = utilisateur;
     }
@@ -64,6 +67,14 @@ public class Article implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getArticle_img() {
+        return article_img;
+    }
+
+    public void setArticle_img(String article_img) {
+        this.article_img = article_img;
     }
 
     public LocalDate getDate_debut_encheres() {

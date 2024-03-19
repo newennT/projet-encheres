@@ -18,10 +18,10 @@
 
         <h1>Vendre un article</h1>
 
-        <form data-th-action="@{/article}" data-th-object="${article}" method="post" class="nouvel-article">
+        <form data-th-action="@{/article}" data-th-object="${article}" enctype="multipart/form-data" method="post" class="nouvel-article">
             <div class="image-article">
                 <p>Photos de l'article</p>
-                <input type="file" name="" id="">
+                <input type="file" name="article_img" id="article_img">
             </div>
 
             <div class="infos-article">
@@ -55,19 +55,19 @@
                 <div class="retrait-article">
                     <h2>Retrait de l'article</h2>
 
-                    <label for="">Rue</label>
-                    <input type="text" name="" id="">
+                    <label for="rue">Rue</label>
+                    <input type="text" name="rue" id="rue">
 
-                    <label for="">Code postal</label>
-                    <input type="text" name="" id="">
+                    <label for="code_postal">Code postal</label>
+                    <input type="text" name="code_postal" id="code_postal">
 
-                    <label for="">Ville</label>
-                    <input type="text" name="" id="">
+                    <label for="ville">Ville</label>
+                    <input type="text" name="ville" id="ville">
                 </div>
 
 
                 <button type ="submit" value="ajouter" class="btn-primary btn-primary-fondblanc">Ajouter</button>
-                <button class="btn-secondary"><a href="@{/}">Annuler</a></button>
+                <button class="btn-secondary"><a data-th-href="@{/}">Annuler</a></button>
             </div>
         </form>
 
