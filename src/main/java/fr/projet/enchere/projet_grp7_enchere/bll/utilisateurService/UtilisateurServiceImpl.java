@@ -18,6 +18,12 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     private final UtilisateurDAO utilisateurDAO;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Constructor injection to set the UtilisateurDAO and PasswordEncoder dependencies.
+     *
+     * @param utilisateurDAO  The UtilisateurDAO implementation.
+     * @param passwordEncoder The PasswordEncoder implementation.
+     */
     @Autowired
     public UtilisateurServiceImpl(UtilisateurDAO utilisateurDAO, PasswordEncoder passwordEncoder) {
         this.utilisateurDAO = utilisateurDAO;
@@ -58,6 +64,22 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         return utilisateurDAO.findByEmail(email);
     }
 
+
+    /**
+     * Deletes an existing Utilisateur from the system.
+     *
+     * @param utilisateur The Utilisateur object to be deleted.
+     */
+    @Override
+    public void supprimerUtilisateur(Utilisateur utilisateur) {
+        utilisateurDAO.deleteUser(utilisateur);
+    }
+
+    /**
+     * Retrieves a list of all Utilisateurs present in the system.
+     *
+     * @return A list containing all Utilisateurs.
+     */
     @Override
     public List<Utilisateur> getAll() {
         return utilisateurDAO.getAll();

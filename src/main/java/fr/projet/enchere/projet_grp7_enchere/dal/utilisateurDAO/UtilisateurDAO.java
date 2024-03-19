@@ -38,4 +38,11 @@ public interface UtilisateurDAO {
      * @return The Utilisateur object matching the provided email.
      */
     Utilisateur findByEmail(String email);
+
+    /**
+     * Removes a Utilisateur from the system.
+     *
+     * @param utilisateur The Utilisateur object to be removed.
+     */
+    void deleteUser(Utilisateur utilisateur);
 }

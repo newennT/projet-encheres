@@ -32,5 +32,17 @@ public interface UtilisateurService {
      */
     Utilisateur trouverParEmail(String email);
 
+    /**
+     * Removes a Utilisateur from the system.
+     *
+     * @param utilisateur The Utilisateur object to be removed.
+     */
+    void supprimerUtilisateur(Utilisateur utilisateur);
+
+    /**
+     * Retrieves all Utilisateurs from the system.
+     *
+     * @return List of all Utilisateur objects.
+     */
     List<Utilisateur> getAll();
 }

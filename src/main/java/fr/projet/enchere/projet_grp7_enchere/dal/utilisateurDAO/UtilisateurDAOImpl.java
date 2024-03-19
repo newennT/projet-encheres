@@ -31,15 +31,24 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
     final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=:email";
 
+    final String DELETE_USER = "DELETE FROM UTILISATEURS WHERE no_utilisateur=:no_utilisateur";
+
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    /**
+     * Constructs a new UtilisateurDAOImpl object with the provided JdbcTemplate and NamedParameterJdbcTemplate.
+     *
+     * @param jdbcTemplate              The JdbcTemplate used for JDBC operations without named parameters.
+     * @param namedParameterJdbcTemplate The NamedParameterJdbcTemplate used for JDBC operations with named parameters.
+     */
     @Autowired
     public UtilisateurDAOImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
+    // RowMapper to map ResultSet rows to Utilisateur objects
     RowMapper<Utilisateur> mapper = (rs, i) -> new Utilisateur(rs.getInt("no_utilisateur"),
             rs.getString("pseudo"),
             rs.getString("nom"),
@@ -112,5 +121,17 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         } else {
             return utilisateurs.get(0);
         }
+    }
+
+    /**
+     * Removes a Utilisateur from the system.
+     *
+     * @param utilisateur The Utilisateur object to be removed.
+     */
+    @Override
+    public void deleteUser(Utilisateur utilisateur) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("no_utilisateur", utilisateur.getNoUtilisateur());
+        namedParameterJdbcTemplate.update(DELETE_USER, namedParameters);
     }
 }
