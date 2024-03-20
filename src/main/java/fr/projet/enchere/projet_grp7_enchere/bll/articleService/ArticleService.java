@@ -15,4 +15,5 @@ public interface ArticleService {
      * Liste tous les articles
      */
     public List<Article> getAll();
+
 }

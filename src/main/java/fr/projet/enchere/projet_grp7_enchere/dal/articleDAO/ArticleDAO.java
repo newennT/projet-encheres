@@ -9,4 +9,5 @@ public interface ArticleDAO {
     public void insert(Article article);
 
     public List<Article> getAll();
+
 }

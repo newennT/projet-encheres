@@ -99,7 +99,7 @@ public class ArticleDAOImpl implements ArticleDAO {
     @Override
     public List<Article> getAll() {
         return jdbcTemplate.query("SELECT AV.no_article, AV.nom_article, AV.description, AV.date_debut_encheres, \n" +
-                "       AV.date_fin_encheres, AV.prix_initial, AV.prix_vente,\n" +
+                "       AV.date_fin_encheres, AV.prix_initial, AV.prix_vente, AV.article_img, \n" +
                 "       U.no_utilisateur, U.pseudo, U.nom, U.prenom, U.email, U.telephone, \n" +
                 "       U.rue, U.code_postal, U.ville, U.mot_de_passe, U.credit, U.administrateur,\n" +
                 "       C.no_categorie, C.libelle\n" +

@@ -37,7 +37,7 @@ CREATE TABLE RETRAITS (
                           rue              VARCHAR(30) NOT NULL,
                           code_postal      VARCHAR(15) NOT NULL,
                           ville            VARCHAR(30) NOT NULL,
-                          FOREIGN KEY (no_article) REFERENCES ARTICLES_VENDUS(no_article) ON DELETE NO ACTION ON UPDATE NO ACTION
+
 );
 
 CREATE TABLE ENCHERES (
