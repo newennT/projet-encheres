@@ -28,62 +28,42 @@ public class EnchereDAOImpl implements EnchereDAO {
     public void insert(Enchere enchere) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        System.out.println("---------------------ID UTILISATEUR : " + enchere.getUtilisateur().getNoUtilisateur());
-        System.out.println("---------------------ID ARTICLE : " + enchere.getArticle().getNo_article());
-        System.out.println("---------------------ID RETRAIT : " + enchere.getRetrait().getNo_retrait());
-        System.out.println("---------------------date_encheres : " + enchere.getDate_enchere());
-        System.out.println("---------------------montant_enchere : " + enchere.getMontant_enchere());
-
-
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
 
         namedParameters.addValue("no_article", enchere.getArticle().getNo_article());
         namedParameters.addValue("no_utilisateur", enchere.getUtilisateur().getNoUtilisateur());
-        namedParameters.addValue("no_retrait", enchere.getRetrait().getNo_retrait());
-
-
-        namedParameters.addValue("date_encheres", enchere.getDate_enchere());
+        namedParameters.addValue("date_enchere", enchere.getDate_enchere());
         namedParameters.addValue("montant_enchere", enchere.getMontant_enchere());
 
-
-        jdbcTemplate.update("INSERT INTO ENCHERES (no_article, no_utilisateur, no_retrait, date_enchere, montant_enchere) " +
-                "VALUES (:no_article, :no_utilisateur, :no_retrait,:date_encheres, :montant_enchere)", namedParameters, keyHolder);
+        jdbcTemplate.update("INSERT INTO ENCHERES (no_article, no_utilisateur, date_enchere, montant_enchere) " +
+                "VALUES (:no_article, :no_utilisateur, :date_enchere, :montant_enchere)", namedParameters, keyHolder);
 
         if (keyHolder != null && keyHolder.getKey() != null) {
             enchere.setNo_enchere(keyHolder.getKey().intValue());
         }
-
     }
+
+
+
 
     @Override
     public List<Enchere> getAll() {
-        return jdbcTemplate.query("SELECT U.*, AV.*, R.*, E.*\n" +
-                "FROM ENCHERES E\n" +
-                "JOIN ARTICLES_VENDUS AV ON AV.no_article = E.no_article\n" +
-                "LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur\n" +
-                "LEFT JOIN RETRAITS R ON E.no_retrait = R.no_retrait;", new ArticleRowMapper());
+        return jdbcTemplate.query("SELECT E.*, U.*, AV.* " +
+                "FROM ENCHERES E " +
+                "JOIN UTILISATEURS U ON E.no_utilisateur = U.no_utilisateur " +
+                "JOIN ARTICLES_VENDUS AV ON E.no_article = AV.no_article", new EnchereRowMapper());
     }
 
     /**
-     * Classe de mapping pour gérer l'association vers Categorie
+     * Classe de mapping pour gérer l'association vers Enchere
      */
-    static class ArticleRowMapper implements RowMapper<Enchere> {
+    static class EnchereRowMapper implements RowMapper<Enchere> {
         @Override
         public Enchere mapRow(ResultSet rs, int rowNum) throws SQLException {
             Enchere enchere = new Enchere();
             enchere.setNo_enchere(rs.getInt("no_enchere"));
             enchere.setDate_enchere(rs.getDate("date_enchere").toLocalDate());
             enchere.setMontant_enchere(rs.getInt("montant_enchere"));
-
-            // Association vers l'article
-            Article article = new Article();
-            article.setNo_article(rs.getInt("no_article"));
-            article.setNom_article(rs.getString("nom_article"));
-            article.setDescription(rs.getString("description"));
-            article.setDate_debut_encheres(rs.getDate("date_debut_encheres").toLocalDate());
-            article.setDate_fin_encheres(rs.getDate("date_fin_encheres").toLocalDate());
-            article.setPrix_initial(rs.getInt("prix_initial"));
-            article.setPrix_vente(rs.getInt("prix_vente"));
 
             // Association vers l'utilisateur
             Utilisateur utilisateur = new Utilisateur();
@@ -99,19 +79,22 @@ public class EnchereDAOImpl implements EnchereDAO {
             utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
             utilisateur.setCredit(rs.getInt("credit"));
             utilisateur.setAdministrateur(rs.getBoolean("administrateur"));
-
-            // Association vers le retrait
-            Retrait retrait = new Retrait();
-            retrait.setNo_retrait(rs.getInt("no_retrait"));
-            retrait.setRue(rs.getString("rue"));
-            retrait.setCode_postal(rs.getString("code_postal"));
-            retrait.setVille(rs.getString("ville"));
-
-            enchere.setArticle(article);
             enchere.setUtilisateur(utilisateur);
-            enchere.setRetrait(retrait);
+
+            // Association vers l'article
+            Article article = new Article();
+            article.setNo_article(rs.getInt("no_article"));
+            article.setNom_article(rs.getString("nom_article"));
+            article.setDescription(rs.getString("description"));
+            article.setDate_debut_encheres(rs.getDate("date_debut_encheres").toLocalDate());
+            article.setDate_fin_encheres(rs.getDate("date_fin_encheres").toLocalDate());
+            article.setPrix_initial(rs.getInt("prix_initial"));
+            article.setPrix_vente(rs.getInt("prix_vente"));
+            enchere.setArticle(article);
 
             return enchere;
         }
     }
+
+
 }

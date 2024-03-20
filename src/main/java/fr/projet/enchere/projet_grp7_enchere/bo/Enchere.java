@@ -12,18 +12,15 @@ public class Enchere implements Serializable {
     Article article;
     Utilisateur utilisateur;
 
-    Retrait retrait;
-
     private LocalDate date_enchere;
     private int montant_enchere;
 
     public Enchere() {
     }
 
-    public Enchere(Article article, Utilisateur utilisateur, Retrait retrait, LocalDate date_enchere, int montant_enchere) {
+    public Enchere(Article article, Utilisateur utilisateur, LocalDate date_enchere, int montant_enchere) {
         this.article = article;
         this.utilisateur = utilisateur;
-        this.retrait = retrait;
         this.date_enchere = date_enchere;
         this.montant_enchere = montant_enchere;
     }
@@ -51,14 +48,6 @@ public class Enchere implements Serializable {
 
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
-    }
-
-    public Retrait getRetrait() {
-        return retrait;
-    }
-
-    public void setRetrait(Retrait retrait) {
-        this.retrait = retrait;
     }
 
     public LocalDate getDate_enchere() {
