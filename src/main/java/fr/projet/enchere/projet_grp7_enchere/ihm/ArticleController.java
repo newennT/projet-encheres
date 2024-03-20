@@ -109,7 +109,6 @@ public class ArticleController {
             Enchere enchere = new Enchere();
             enchere.setUtilisateur(currentUser);
             enchere.setArticle(article);
-            enchere.setRetrait(retrait);
             enchere.setMontant_enchere(article.getPrix_initial()); // Utilisez le prix initial de l'article comme montant initial de l'enchère
             enchere.setDate_enchere(article.getDate_debut_encheres()); // Utilisez la date de début d'enchère de l'article
 
