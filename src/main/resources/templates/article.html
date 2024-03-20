@@ -19,11 +19,6 @@
         <h1>Vendre un article</h1>
 
         <form data-th-action="@{/article}" data-th-object="${article}" enctype="multipart/form-data" method="post" class="nouvel-article">
-            <div class="image-article">
-                <p>Photos de l'article</p>
-                <input type="file" name="article_img" id="article_img">
-            </div>
-
             <div class="infos-article">
             <label for="nom_article">Nom</label>
             <input type="text" id="nom_article" data-th-field="*{nom_article}"/>

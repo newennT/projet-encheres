@@ -101,6 +101,55 @@ header nav ul li a:hover, footer nav ul li a:hover{
 }
 
 
+/* Menu responsive */
+
+header .menu-toggle{
+    display: none;
+}
+
+header .menu-toggle .menu ul{
+    position: absolute;
+    right: 0;
+    display: none;
+    list-style-type: none;
+    background-color: #000000;
+    padding: 15px 30px 15px 30px;
+    margin-top: -10px;
+}
+
+header .menu-toggle .menu ul li{
+    margin-bottom: 10px;
+}
+
+header .menu-toggle .menu ul li a{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+header .menu-toggle .menu ul li a:hover{
+    color: #2CDCF4;
+}
+
+header .menu-toggle .menu:hover ul{
+    display: block;
+}
+
+@media screen and (max-width: 1000px) {
+    header nav{
+        display: none;
+    }
+
+    header .menu-toggle{
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
+        margin: auto;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}
 
 
 
@@ -119,6 +168,12 @@ h1{
     margin-bottom: 100px;
 }
 
+@media screen and (max-width: 800px) {
+    h1{
+        font-size: 50px;
+        margin-bottom: 60px;
+    }
+}
 
 
 
@@ -157,6 +212,11 @@ h1{
     width: 5%;
 }
 
+@media screen and (max-width: 800px) {
+    .form-connexion{
+        width: 80%;
+    }
+}
 
 /* Section filtres page d'accueil */
 
@@ -197,6 +257,27 @@ h1{
 
 
 
+/* Section des filtres en responsive */
+
+@media screen and (max-width: 900px) {
+    .section-filtres .filtres{
+        display: block;
+    }
+
+    .section-filtres .filtres input, .section-filtres .filtres select{
+        width: 100%;
+    }
+
+    .section-filtres .cases-filtres{
+        display: block;
+    }
+
+    .section-filtres .cases-filtres div{
+        margin-bottom: 20px;
+    }
+}
+
+
 /* Affichage des articles de la page d'accueil */
 
 .articles{
@@ -212,27 +293,15 @@ h1{
     justify-content: space-between;
     background-color: #ffffff;
     box-shadow: 2px 2px 10px #dddddd;
-    width: 48%;
-    min-width: 400px;
+    width: 32%;
+    min-width: 320px;
     margin-bottom: 30px;
     flex-wrap: wrap;
 }
 
-.articles article .image-container {
-    min-width: 200px;
-    height: 200px;
-    overflow: hidden;
-    position: relative;
-}
-.articles article .image-container img {
-    /* width: 100%;*/
-    height: auto;
-    display: block;
-}
-
 .articles article .infos{
     padding: 15px 30px 30px 30px;
-    min-width: 300px;
+    min-width: 200px;
 }
 
 .articles article .infos button{
@@ -245,6 +314,7 @@ h1{
 
 .articles article .infos h3{
     margin: 15px 0 10px 0;
+    font-size: 30px;
 }
 
 .articles article .infos .infos-details{
@@ -267,6 +337,19 @@ h1{
     margin-bottom: 10px;
 }
 
+/* Section des articles en mode responsive */
+
+@media screen and (max-width: 1300px) {
+    .articles article{
+        width: 49%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .articles article {
+        width: 100%;
+    }
+}
 
 
 
@@ -294,6 +377,16 @@ h1{
     margin-top: 40px;
 }
 
+@media screen and (max-width: 1000px) {
+    .form-inscription, .form-profil{
+        display: block;
+    }
+
+    .form-inscription div, .form-profil div{
+        width: 100%;
+    }
+}
+
 
 
 /* Informations du profil */
@@ -310,6 +403,12 @@ h1{
     width: 25%;
 }
 
+@media screen and (max-width: 1000px) {
+    .infos-profil .info{
+        display: block;
+    }
+}
+
 
 /*Ajouter un article */
 
@@ -318,16 +417,14 @@ h1{
     justify-content: space-between;
 }
 
-.nouvel-article .image-article, .details-article .image-article{
-    width: 40%;
-}
-
-.nouvel-article .image-article img, .details-article .image-article img{
-    width: 100%;
+@media screen and (max-width: 1000px) {
+    .nouvel-article, .details-article{
+        display: block;
+    }
 }
 
 .nouvel-article .infos-article, .details-article .infos-article{
-    width: 50%;
+    width: 100%;
 }
 
 .nouvel-article .infos-article span{
