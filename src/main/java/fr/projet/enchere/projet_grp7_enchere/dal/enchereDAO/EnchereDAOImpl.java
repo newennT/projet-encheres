@@ -58,10 +58,10 @@ public class EnchereDAOImpl implements EnchereDAO {
     @Override
     public List<Enchere> getAll() {
         return jdbcTemplate.query("SELECT U.*, AV.*, R.*, E.*\n" +
-                "FROM UTILISATEURS U\n" +
-                "JOIN ARTICLES_VENDUS AV ON U.no_utilisateur = AV.no_utilisateur\n" +
-                "LEFT JOIN RETRAITS R ON AV.no_article = R.no_article\n" +
-                "LEFT JOIN ENCHERES E ON AV.no_article = E.no_article;", new ArticleRowMapper());
+                "FROM ENCHERES E\n" +
+                "JOIN ARTICLES_VENDUS AV ON AV.no_article = E.no_article\n" +
+                "LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur\n" +
+                "LEFT JOIN RETRAITS R ON E.no_retrait = R.no_retrait;", new ArticleRowMapper());
     }
 
     /**

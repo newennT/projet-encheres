@@ -58,82 +58,29 @@
                 </div>
             </div>
         </form>
-
-<!-- Section à supprimer quand les infos des articles seront accessibles sur cette page -->
-        <section class="articles">
-            <article>
-                <div class="image-container">
-                    <img th:src="@{images/placeholder.png}" />
-                </div>
-                <div class="infos">
-                    <h3>Exemple article</h3>
-                    <p>par <span>pseudo</span></p>
-                    <div class="infos-details">
-                        <div>
-                            <p class="infos-details-titre">Prix</p>
-                            <p>210 points</p>
-                        </div>
-                        <div>
-                            <p class="infos-details-titre">Fin de l'enchère</p>
-                            <p>21/03/2024</p>
-                        </div>
-                    </div>
-                    <button th:if="${#ctx.session.currentUser != null}" class="btn-primary btn-primary-fondblanc">Voir l'article</button>
-                </div>
-            </article>
-
-            <article>
-                <div class="image-container">
-                    <img th:src="@{images/placeholder.png}" />
-                </div>
-                <div class="infos">
-                    <h3>Exemple article</h3>
-                    <p>par <span>pseudo</span></p>
-                    <div class="infos-details">
-                        <div>
-                            <p class="infos-details-titre">Prix</p>
-                            <p>210 points</p>
-                        </div>
-                        <div>
-                            <p class="infos-details-titre">Fin de l'enchère</p>
-                            <p>21/03/2024</p>
-                        </div>
-                    </div>
-                    <button th:if="${#ctx.session.currentUser != null}" class="btn-primary btn-primary-fondblanc">Voir l'article</button>
-                </div>
-            </article>
-
-        </section>
-     <!--  Fin section à supprimer  -->
-
-        <section class="articles" data-th-each="article : ${lstArticles}">
-            <article>
-                <div class="image-container">
-                    <img th:src="@{images/placeholder.png}" />
-                </div>
-                <div class="infos">
-                    <h3 data-th-text="${article.nom_article}">PC Gamer</h3>
-                    <p>par <span data-th-text="${article.utilisateur}">pseudo</span></p>
-                    <div class="infos-details">
-                        <div>
-                            <p class="infos-details-titre">Prix</p>
-                            <p data-th-text="${article.prix_initial}">210 points</p>
-                        </div>
-                        <div>
-                            <p class="infos-details-titre">Fin de l'enchère</p>
-                            <p>èèè</p>
-                        </div>
-                    </div>
-                    <button th:if="${#ctx.session.currentUser != null}" class="btn-primary btn-primary-fondblanc">Voir l'article</button>
-                </div>
-            </article>
-
-        </section>
-
-        
-            
-        </div>
     </section>
+
+    <section class="articles" >
+        <article data-th-each="enchere : ${lstEncheres}">
+
+            <div class="infos">
+                <h3 data-th-text="${enchere.article.nom_article}"></h3>
+                <p>par <span data-th-text="${enchere.utilisateur.pseudo}"></span></p>
+                <div class="infos-details">
+                    <div>
+                        <p class="infos-details-titre">Prix</p>
+                        <p data-th-text="${enchere.montant_enchere}"> </p>
+                    </div>
+                    <div>
+                        <p class="infos-details-titre">Fin de l'enchère</p>
+                        <p data-th-text="${enchere.date_enchere}"></p>
+                    </div>
+                </div>
+                <button th:if="${#ctx.session.currentUser != null}" class="btn-primary btn-primary-fondblanc"><a data-th-href="@{/enchere-details(id=${enchere.no_enchere})}"> Voir l'enchère</a></button>
+            </div>
+        </article>
+    </section>
+            
 </main>
 </body>
 </html>

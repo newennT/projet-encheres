@@ -23,4 +23,6 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> getAll() {
         return dao.getAll();
     }
+
+
 }
