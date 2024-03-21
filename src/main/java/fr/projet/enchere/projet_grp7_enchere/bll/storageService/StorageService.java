@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+//TODO - Enregistrement d'une img --> Implémentation en cours
 @Service
 public class StorageService {
 

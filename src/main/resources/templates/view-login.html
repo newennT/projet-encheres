@@ -10,23 +10,23 @@
 
 <title>ENI Enchères - Connexion</title>
 
-    <body>
-        <main class="main-content">
-            <H1>Connexion</H1>
+<body>
+<main class="main-content">
+    <H1>Connexion</H1>
 
-            <a data-th-href="@{/}">Accueil</a>
-            <p data-th-text="${#ctx.session.currentUser != null} ? ${#ctx.session.currentUser} : 'Non connecté !'"/>
+    <form th:action="@{/login}" method="post" class="form-connexion">
+        <label for="username">Pseudonyme</label>
+        <input type="text" id="username" name="username" autofocus="autofocus"/> <br/>
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password"/> <br/>
 
-            <form th:action="@{/login}" method="post" class="form-connexion">
-                <label for="username">Pseudonyme</label>
-                <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" /> <br />
-                <div class="se-souvenir"><input type="checkbox" name="se-souvenir" id="" /><label>Se souvenir de moi</label></div>
-                <p class="mdp-oublie"><a href="#">Mot de passe oublié ?</a></p>
-                </div>
-                <button type="submit" value="Connexion" class="btn-primary btn-primary-fondbleu">Connexion</button>
-            </form>
-        </main>
-    </body>
+        <span style="color: red" data-th-if="${loginError}" data-th-text="${message}"></span>
+
+        <div class="se-souvenir">
+            <label for="">Se souvenir de moi</label><input type="checkbox" name="remember-me" id=""/>
+        </div>
+        <button type="submit" value="Connexion" class="btn-primary btn-primary-fondbleu">Connexion</button>
+    </form>
+</main>
+</body>
 </html>

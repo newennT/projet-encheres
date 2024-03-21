@@ -53,11 +53,19 @@ public interface UtilisateurService {
      */
     void modifierUtilisateur(Utilisateur utilisateur);
 
-    Boolean doPasswordsMatch(String saisie,String encodedPassword);
+    /**
+     * Checks whether the provided password matches the encoded password.
+     *
+     * @param saisie          The input password.
+     * @param encodedPassword The encoded password stored in the database.
+     * @return True if the provided password matches the encoded password, false otherwise.
+     */
+    Boolean doPasswordsMatch(String saisie, String encodedPassword);
 
     /**
      * To validate the pattern of the new password in the profile edition
-     * @param password
+     *
+     * @param password the new password
      * @return Yes if password is ok, no if not
      */
     Boolean isValidPassword(String password);

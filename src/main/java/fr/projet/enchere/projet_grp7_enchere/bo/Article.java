@@ -1,40 +1,85 @@
 package fr.projet.enchere.projet_grp7_enchere.bo;
 
-
+import jakarta.validation.constraints.*;
+import org.hibernate.validator.constraints.URL;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * Represents an article in the system.
+ */
 public class Article implements Serializable {
+    /**
+     * These parameters adhere as closely as possible to SIO standards.
+     */
 
     private long no_article;
 
+    @Size(min = 4, max = 70, message = "{validation.nom_article.size}")
+    @Pattern(regexp = "^[a-zA-Z0-9À-ÿ\\- ]+$", message = "{validation.nom_article.pattern}")
     private String nom_article;
+
+    @Size(min = 4, max = 255, message = "{validation.description.size}")
+    @Pattern(regexp = "^[a-zA-Z0-9À-ÿ\\- ]+$", message = "{validation.description.pattern}")
     private String description;
+
+    @FutureOrPresent(message = "{validation.date_debut_encheres.futureOrPresent}")
     private LocalDate date_debut_encheres;
+
+    @Future(message = "{validation.date_fin_encheres.future}")
     private LocalDate date_fin_encheres;
 
+    @Min(value = 0, message = "{validation.prix_initial.min}")
     private int prix_initial;
+
+    @Min(value = 0, message = "{validation.prix_vente.min}")
     private int prix_vente;
 
+    @URL(message = "{validation.article_img.url}")
     private String article_img;
 
+    @NotNull(message = "{validation.categorie.notNull}")
     private Categorie categorie;
 
+    @NotNull(message = "{validation.utilisateur.notNull}")
     private Utilisateur utilisateur;
 
+    @NotNull(message = "{validation.retrait.notNull}")
     private Retrait retrait;
 
-
+    /**
+     * Default constructor.
+     */
     public Article() {
     }
 
+    /**
+     * Constructor with name parameter.
+     *
+     * @param nom_article The name of the article.
+     */
     public Article(String nom_article) {
         this.nom_article = nom_article;
     }
 
-    public Article(int no_article, String nom_article, String description, LocalDate date_debut_encheres, LocalDate date_fin_encheres, int prix_initial, int prix_vente, String article_img, Retrait retrait, Categorie categorie, Utilisateur utilisateur) {
+    /**
+     * Full constructor.
+     *
+     * @param no_article          The unique identifier for the article.
+     * @param nom_article         The name of the article.
+     * @param description         The description of the article.
+     * @param date_debut_encheres The start date of the auction for the article.
+     * @param date_fin_encheres   The end date of the auction for the article.
+     * @param prix_initial        The initial price of the article.
+     * @param prix_vente          The selling price of the article.
+     * @param categorie           The category of the article.
+     * @param utilisateur         The user who listed the article.
+     */
+    public Article(int no_article, String nom_article, String description, LocalDate date_debut_encheres,
+                   LocalDate date_fin_encheres, int prix_initial, int prix_vente, String article_img, Retrait retrait,
+                   Categorie categorie, Utilisateur utilisateur) {
         this.no_article = no_article;
         this.nom_article = nom_article;
         this.description = description;
@@ -47,6 +92,8 @@ public class Article implements Serializable {
         this.categorie = categorie;
         this.utilisateur = utilisateur;
     }
+
+    // Getters and setters
 
     public long getNo_article() {
         return no_article;
@@ -112,7 +159,6 @@ public class Article implements Serializable {
         this.prix_vente = prix_vente;
     }
 
-
     public Categorie getCategorie() {
         return categorie;
     }
@@ -137,12 +183,22 @@ public class Article implements Serializable {
         this.retrait = retrait;
     }
 
-    //Equals et hashCode pour comparer 2 instances de la classe selon leur 'id'
+    /**
+     * Computes a hash code for this article based on its unique identifier.
+     *
+     * @return The hash code value for this article.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(no_article);
     }
 
+    /**
+     * Equals method to compare two instances of the class based on their 'id'.
+     *
+     * @param obj The object to compare.
+     * @return True if the objects are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

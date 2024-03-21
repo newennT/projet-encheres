@@ -98,17 +98,30 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         utilisateurDAO.update(utilisateur);
     }
 
-    public Boolean doPasswordsMatch(String saisie,String encodedPassword) {
+    /**
+     * Checks whether the provided password matches the encoded password.
+     *
+     * @param saisie          The input password.
+     * @param encodedPassword The encoded password stored in the database.
+     * @return True if the provided password matches the encoded password, false otherwise.
+     */
+    @Override
+    public Boolean doPasswordsMatch(String saisie, String encodedPassword) {
         return passwordEncoder.matches(saisie, encodedPassword);
     }
 
     /**
      * To validate the pattern of the new password in the profile edition
-     * @param password
+     *
+     * @param password the new password
      * @return Yes if password is ok, no if not
      */
-    public Boolean isValidPassword(String password){
+    @Override
+    public Boolean isValidPassword(String password) {
+        // Define the regex pattern to enforce the password requirements
         Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+
+        // Create a matcher object to match the password against the pattern
         Matcher matcher = pattern.matcher(password);
         return matcher.find();
     }

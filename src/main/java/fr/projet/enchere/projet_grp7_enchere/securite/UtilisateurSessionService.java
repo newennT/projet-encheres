@@ -2,7 +2,6 @@ package fr.projet.enchere.projet_grp7_enchere.securite;
 
 import fr.projet.enchere.projet_grp7_enchere.bll.utilisateurService.UtilisateurService;
 import fr.projet.enchere.projet_grp7_enchere.bo.Utilisateur;
-import fr.projet.enchere.projet_grp7_enchere.dal.utilisateurDAO.UtilisateurDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,8 +14,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class UtilisateurSessionService implements UserDetailsService {
 
+    private final UtilisateurService utilisateurService;
+
+    /**
+     * Constructor for the UtilisateurSessionService class.
+     *
+     * @param utilisateurService The service for handling user-related business logic.
+     */
     @Autowired
-    private UtilisateurService utilisateurService;
+    public UtilisateurSessionService(UtilisateurService utilisateurService) {
+        this.utilisateurService = utilisateurService;
+    }
 
     /**
      * Loads user details by username (pseudo) during authentication.
@@ -36,6 +44,8 @@ public class UtilisateurSessionService implements UserDetailsService {
         } catch (Exception e) {
             throw new UsernameNotFoundException(pseudo);
         }
+
         return new UtilisateurSession(utilisateur);
     }
+
 }

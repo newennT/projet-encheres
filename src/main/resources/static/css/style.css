@@ -1,11 +1,11 @@
-body{
+body {
     background-color: #ececec;
     font-family: 'montserrat', sans-serif;
     font-size: 18px;
     margin: 0;
 }
 
-.btn-primary{
+.btn-primary {
     color: #ffffff;
     background-color: #000000;
     padding: 15px 30px 15px 30px;
@@ -15,42 +15,42 @@ body{
     cursor: pointer;
 }
 
-.btn-primary-fondbleu{
+.btn-primary-fondbleu {
     box-shadow: 6px 6px 0 #F3C904;
 }
 
-.btn-primary-fondbleu:hover{
+.btn-primary-fondbleu:hover {
     box-shadow: 3px 3px 0 #ffffff;
 }
 
-.btn-primary-fondblanc{
+.btn-primary-fondblanc {
     box-shadow: 6px 6px 0 #2CDCF4;
 }
 
-.btn-primary-fondblanc:hover{
+.btn-primary-fondblanc:hover {
     box-shadow: 3px 3px 0 #ffffff;
 }
 
-.btn-secondary{
+.btn-secondary {
     border: none;
     margin-left: 20px;
     font-size: 18px;
 }
 
-.btn-secondary a{
+.btn-secondary a {
     color: #ff0000;
 }
 
-.btn-primary a{
+.btn-primary a {
     color: #ffffff;
     text-decoration: none;
 }
 
-.btn-secondary a:hover{
+.btn-secondary a:hover {
     text-decoration: none;
 }
 
-input[type="text"], input[type="password"], input[type="tel"], input[type="email"], input[type="date"], input[type="number"], select{
+input[type="text"], input[type="password"], input[type="tel"], input[type="email"], input[type="date"], input[type="number"], select {
     border: none;
     border-radius: 0;
     height: 30px;
@@ -59,15 +59,14 @@ input[type="text"], input[type="password"], input[type="tel"], input[type="email
 }
 
 
-
 /* Mise en forme header et footer */
 
-header, footer{
+header, footer {
     background-color: #000000;
     color: #ffffff;
 }
 
-header nav, footer nav{
+header nav, footer nav {
     display: flex;
     justify-content: space-between;
     width: 90%;
@@ -77,37 +76,37 @@ header nav, footer nav{
     padding-bottom: 15px;
 }
 
-header nav ul{
+header nav ul {
     display: flex;
 }
 
-footer nav ul{
+footer nav ul {
     font-size: 15px;
 }
 
-header nav ul li, footer nav ul li{
+header nav ul li, footer nav ul li {
     list-style-type: none;
     padding-right: 20px;
     padding-left: 20px;
 }
 
-header nav ul li a, footer nav ul li a{
+header nav ul li a, footer nav ul li a {
     color: #ffffff;
     text-decoration: none;
 }
 
-header nav ul li a:hover, footer nav ul li a:hover{
+header nav ul li a:hover, footer nav ul li a:hover {
     color: #2CDCF4;
 }
 
 
 /* Menu responsive */
 
-header .menu-toggle{
+header .menu-toggle {
     display: none;
 }
 
-header .menu-toggle .menu ul{
+header .menu-toggle .menu ul {
     position: absolute;
     right: 0;
     display: none;
@@ -117,30 +116,30 @@ header .menu-toggle .menu ul{
     margin-top: -10px;
 }
 
-header .menu-toggle .menu ul li{
+header .menu-toggle .menu ul li {
     padding-bottom: 20px;
     padding-top: 20px;
 }
 
-header .menu-toggle .menu ul li a{
+header .menu-toggle .menu ul li a {
     color: #ffffff;
     text-decoration: none;
 }
 
-header .menu-toggle .menu ul li a:hover{
+header .menu-toggle .menu ul li a:hover {
     color: #2CDCF4;
 }
 
-header .menu-toggle .menu:hover ul{
+header .menu-toggle .menu:hover ul {
     display: block;
 }
 
 @media screen and (max-width: 1000px) {
-    header nav{
+    header nav {
         display: none;
     }
 
-    header .menu-toggle{
+    header .menu-toggle {
         cursor: pointer;
         display: flex;
         justify-content: space-between;
@@ -153,54 +152,49 @@ header .menu-toggle .menu:hover ul{
 }
 
 
-
 /* Mise en forme globale */
 
-main{
+main {
     width: 80%;
-    margin: auto;
-    margin-top: 100px;
-    margin-bottom: 150px;
+    margin: 100px auto 150px;
 }
 
-h1{
+h1 {
     text-align: center;
     font-size: 60px;
     margin-bottom: 100px;
 }
 
 @media screen and (max-width: 800px) {
-    h1{
+    h1 {
         font-size: 50px;
         margin-bottom: 60px;
     }
 }
 
 
-
 /* Formulaire de connexion */
 
-.form-connexion{
+.form-connexion {
     background-color: #2CDCF4;
     width: 500px;
-    margin: auto;
     padding: 40px;
-    margin-bottom: 200px;
+    margin: auto auto 200px;
 }
 
-.form-connexion .mdp-oublie{
+.form-connexion .mdp-oublie {
     font-size: 15px;
 }
 
-.form-connexion .mdp-oublie a{
+.form-connexion .mdp-oublie a {
     color: #000000;
 }
 
-.form-connexion .mdp-oublie a:hover{
+.form-connexion .mdp-oublie a:hover {
     text-decoration: none;
 }
 
-.form-connexion input{
+.form-connexion input {
     width: 97%;
     margin-bottom: 20px;
     margin-top: 10px;
@@ -209,24 +203,24 @@ h1{
     border: none;
 }
 
-.form-connexion .se-souvenir input{
+.form-connexion .se-souvenir input {
     width: 5%;
 }
 
 @media screen and (max-width: 800px) {
-    .form-connexion{
+    .form-connexion {
         width: 80%;
     }
 }
 
 /* Section filtres page d'accueil */
 
-.section-filtres h2{
+.section-filtres h2 {
     text-align: center;
     width: 100%;
 }
 
-.section-filtres .filtres{
+.section-filtres .filtres {
     display: flex;
     justify-content: space-between;
     background-color: #2CDCF4;
@@ -241,39 +235,38 @@ h1{
     border-radius: 0;
 }
 
-.section-filtres .cases-filtres{
+.section-filtres .cases-filtres {
     display: flex;
     background-color: #2CDCF4;
     padding: 0 40px 40px 40px;
 }
 
-.section-filtres .cases-filtres div{
+.section-filtres .cases-filtres div {
     width: 300px;
 }
 
-.section-filtres .cases-filtres div input[type="checkbox"]{
+.section-filtres .cases-filtres div input[type="checkbox"] {
     margin-left: 50px;
     margin-top: 10px;
 }
 
 
-
 /* Section des filtres en responsive */
 
 @media screen and (max-width: 900px) {
-    .section-filtres .filtres{
+    .section-filtres .filtres {
         display: block;
     }
 
-    .section-filtres .filtres input, .section-filtres .filtres select{
+    .section-filtres .filtres input, .section-filtres .filtres select {
         width: 100%;
     }
 
-    .section-filtres .cases-filtres{
+    .section-filtres .cases-filtres {
         display: block;
     }
 
-    .section-filtres .cases-filtres div{
+    .section-filtres .cases-filtres div {
         margin-bottom: 20px;
     }
 }
@@ -281,7 +274,7 @@ h1{
 
 /* Affichage des articles de la page d'accueil */
 
-.articles{
+.articles {
     margin-top: 80px;
     margin-bottom: 150px;
     display: flex;
@@ -289,7 +282,7 @@ h1{
     justify-content: space-between;
 }
 
-.articles article{
+.articles article {
     display: flex;
     justify-content: space-between;
     background-color: #ffffff;
@@ -300,25 +293,25 @@ h1{
     flex-wrap: wrap;
 }
 
-.articles article .infos{
+.articles article .infos {
     padding: 15px 30px 30px 30px;
     min-width: 200px;
 }
 
-.articles article .infos button{
+.articles article .infos button {
     margin-top: 30px;
 }
 
-.articles article .infos p{
+.articles article .infos p {
     font-size: 15px;
 }
 
-.articles article .infos h3{
+.articles article .infos h3 {
     margin: 15px 0 10px 0;
     font-size: 30px;
 }
 
-.articles article .infos .infos-details{
+.articles article .infos .infos-details {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
@@ -327,11 +320,11 @@ h1{
     flex-wrap: wrap;
 }
 
-.articles article .infos .infos-details p{
+.articles article .infos .infos-details p {
     font-size: 18px;
 }
 
-.infos-details-titre{
+.infos-details-titre {
     text-transform: uppercase;
     font-weight: bold;
     color: #8a8a8a;
@@ -341,7 +334,7 @@ h1{
 /* Section des articles en mode responsive */
 
 @media screen and (max-width: 1300px) {
-    .articles article{
+    .articles article {
         width: 49%;
     }
 }
@@ -353,59 +346,57 @@ h1{
 }
 
 
-
 /* Formulaire d'inscription */
 
-.form-inscription, .form-profil{
+.form-inscription, .form-profil {
     display: flex;
     justify-content: space-between;
 }
 
-.form-inscription div, .form-profil div{
+.form-inscription div, .form-profil div {
     width: 48%;
 }
 
-.form-inscription div span, .form-profil div span{
+.form-inscription div span, .form-profil div span {
     display: block;
     margin-bottom: 20px;
 }
 
-.form-inscription div label, .form-profil div label{
+.form-inscription div label, .form-profil div label {
     width: 100%;
 }
 
-.form-inscription button, .form-profil button{
+.form-inscription button, .form-profil button {
     margin-top: 40px;
 }
 
 @media screen and (max-width: 1000px) {
-    .form-inscription, .form-profil{
+    .form-inscription, .form-profil {
         display: block;
     }
 
-    .form-inscription div, .form-profil div{
+    .form-inscription div, .form-profil div {
         width: 100%;
     }
 }
 
 
-
 /* Informations du profil */
 
-.infos-profil{
+.infos-profil {
     width: 100%;
 }
 
-.infos-profil .info{
+.infos-profil .info {
     display: flex;
 }
 
-.infos-profil .info .infos-details-titre{
+.infos-profil .info .infos-details-titre {
     width: 25%;
 }
 
 @media screen and (max-width: 1000px) {
-    .infos-profil .info{
+    .infos-profil .info {
         display: block;
     }
 }
@@ -413,40 +404,40 @@ h1{
 
 /*Ajouter un article */
 
-.nouvel-article, .details-article{
+.nouvel-article, .details-article {
     display: flex;
     justify-content: space-between;
 }
 
 @media screen and (max-width: 1000px) {
-    .nouvel-article, .details-article{
+    .nouvel-article, .details-article {
         display: block;
     }
 }
 
-.nouvel-article .infos-article, .details-article .infos-article{
+.nouvel-article .infos-article, .details-article .infos-article {
     width: 100%;
 }
 
-.nouvel-article .infos-article span{
+.nouvel-article .infos-article span {
     display: block;
 }
 
-.retrait-article{
+.retrait-article {
     background-color: #2CDCF4;
     padding: 40px;
     margin: 10px 0 40px 0;
 }
 
-.details-article .infos-article p{
+.details-article .infos-article p {
     margin: 0;
 }
 
-.details-article .infos-article .infos-details-titre{
+.details-article .infos-article .infos-details-titre {
     margin-top: 40px;
     margin-bottom: 10px;
 }
 
-.details-article button{
+.details-article button {
     margin-top: 50px;
 }

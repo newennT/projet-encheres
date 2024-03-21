@@ -1,15 +1,27 @@
+<!--
+    Footer section containing navigation links and site logo.
+    The footer includes links to navigate through the website and the site logo.
+-->
+
 <footer xmlns:th="http://www.thymeleaf.org" th:fragment="fragment-footer">
     <nav>
+        <!-- Footer Navigation Links -->
         <div class="texte-footer">
             <ul>
-                <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/}">Liste des enchères</a></li>
+                <!-- Main navigation links -->
+                <li><a data-th-href="@{/}">Liste des enchères</a></li>
                 <li th:if="${#ctx.session.currentUser == null}"><a data-th-href="@{/login}">Se connecter</a></li>
                 <li th:if="${#ctx.session.currentUser == null}"><a data-th-href="@{/inscription}">S'inscrire</a></li>
-                <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/article}">Vendre un article</a></li>
-                <li th:if="${#ctx.session.currentUser != null}">Mon profil</li>
+                <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/encheres/ajout-article}">Vendre un article</a></li>
+                <li th:if="${#ctx.session.currentUser != null}"><a
+                        data-th-href="@{/utilisateur/my-profil(pseudo=${#ctx.session.currentUser.pseudo})}">Mon profil</a></li>
+                <li style="color: red" th:if="${#ctx.session.currentUser != null and #ctx.session.currentUser.isAdministrateur()}">
+                    <a data-th-href="@{/administrator/categories}">Gestion des catégories</a>
+                </li>
             </ul>
         </div>
 
+        <!-- Site Logo -->
         <div class="img-footer">
             <a data-th-href="@{/}"><img th:href="@{/}" th:src="@{/images/logo.png}" alt="ENI Enchères"/></a>
         </div>

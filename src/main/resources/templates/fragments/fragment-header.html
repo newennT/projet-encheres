@@ -1,20 +1,35 @@
+<!--
+    Header section containing navigation menus for both desktop and mobile views.
+    The header includes a logo, user information, and navigation links.
+-->
+
 <header xmlns:th="http://www.thymeleaf.org" th:fragment="fragment-header">
 
+    <!-- Desktop Navigation Menu -->
     <nav>
         <div class="logo-header">
             <a data-th-href="@{/}"><img th:href="@{/}" th:src="@{/images/logo.png}" alt="ENI Enchères"/></a>
         </div>
 
         <ul>
+            <!-- Display user information if logged in -->
+            <li data-th-text="${#ctx.session.currentUser != null} ? ${#ctx.session.currentUser.prenom} : 'Non connecté!'"></li>
+
+            <!-- Main navigation links -->
+            <li><a data-th-href="@{/}">Enchères</a></li>
             <li th:if="${#ctx.session.currentUser == null}"><a data-th-href="@{/inscription}">S'inscrire</a></li>
             <li th:if="${#ctx.session.currentUser == null}"><a data-th-href="@{/login}">Se connecter</a></li>
-            <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/}">Enchères</a></li>
-            <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/article}">Vendre un article</a></li>
-            <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/profil(pseudo=${#ctx.session.currentUser.pseudo})}">Mon profil</a></li>
+            <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/encheres/ajout-article}">Vendre un article</a></li>
+            <li th:if="${#ctx.session.currentUser != null}"><a
+                    data-th-href="@{/utilisateur/my-profil(pseudo=${#ctx.session.currentUser.pseudo})}">Mon profil</a></li>
             <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/logout}">Déconnexion</a></li>
+            <li style="color: red" th:if="${#ctx.session.currentUser != null and #ctx.session.currentUser.isAdministrateur()}">
+                <a data-th-href="@{/administrator/categories}">Gestion des catégories</a>
+            </li>
         </ul>
     </nav>
 
+    <!-- Mobile Navigation Menu -->
     <div class="menu-toggle">
         <div class="logo-header">
             <a data-th-href="@{/}"><img th:src="@{/images/logo.png}" alt="ENI Enchères"/></a>
@@ -23,14 +38,21 @@
         <div class="menu">
             <i class="fa fa-bars" id="hamburger"></i>
             <ul id="menu-hamburger">
+                <!-- Display user information if logged in -->
+                <li data-th-text="${#ctx.session.currentUser != null} ? ${#ctx.session.currentUser.prenom} : 'Non connecté!'"></li>
+
+                <!-- Main navigation links for mobile view -->
+                <li><a data-th-href="@{/}">Enchères</a></li>
                 <li th:if="${#ctx.session.currentUser == null}"><a data-th-href="@{/inscription}">S'inscrire</a></li>
                 <li th:if="${#ctx.session.currentUser == null}"><a data-th-href="@{/login}">Se connecter</a></li>
-                <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/}">Enchères</a></li>
-                <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/article}">Vendre un article</a></li>
-                <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/edit(pseudo=${#ctx.session.currentUser.pseudo})}">Mon profil</a></li>
+                <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/encheres/ajout-article}">Vendre un article</a></li>
+                <li th:if="${#ctx.session.currentUser != null}"><a
+                        data-th-href="@{/utilisateur/my-profil(pseudo=${#ctx.session.currentUser.pseudo})}">Mon profil</a></li>
                 <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/logout}">Déconnexion</a></li>
+                <li style="color: red" th:if="${#ctx.session.currentUser != null and #ctx.session.currentUser.isAdministrateur()}">
+                    <a data-th-href="@{/administrator/categories}">Gestion des catégories</a>
+                </li>
             </ul>
         </div>
     </div>
-<!--    <script th:src="@{/static/js/header.js}" defer></script>-->
 </header>

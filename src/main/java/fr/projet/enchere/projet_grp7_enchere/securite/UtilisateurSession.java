@@ -10,7 +10,6 @@ import java.util.Collection;
  * Custom implementation of Spring Security's UserDetails interface for representing authenticated users in the application.
  */
 public class UtilisateurSession implements UserDetails {
-
     private Utilisateur utilisateur;
 
     /**

@@ -3,7 +3,6 @@ package fr.projet.enchere.projet_grp7_enchere.dal.utilisateurDAO;
 import fr.projet.enchere.projet_grp7_enchere.bo.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -23,6 +22,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
     // SQL REQUESTS
     final String SELECT = "SELECT * FROM UTILISATEURS";
+
     final String INSERT = "INSERT INTO UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, " +
             "mot_de_passe, credit, administrateur) " +
             "VALUES(:pseudo, :nom, :prenom, :email, :telephone, :rue, :codePostal, :ville, :motDePasse, :credit, " +
@@ -33,48 +33,38 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
     final String DELETE_USER = "DELETE FROM UTILISATEURS WHERE no_utilisateur=:no_utilisateur";
 
-    final String UPDATE =
-            "UPDATE UTILISATEURS " +
-            "SET " +
-                    "pseudo = :pseudo, " +
-                    "nom = :nom, " +
-                    "prenom = :prenom, " +
-                    "email = :email, " +
-                    "telephone = :telephone, " +
-                    "rue = :rue, " +
-                    "code_postal = :codePostal, " +
-                    "ville = :ville, " +
-                    "mot_de_passe = :motDePasse " +
+    final String UPDATE = "UPDATE UTILISATEURS SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, " +
+            "telephone = :telephone, rue = :rue, code_postal = :codePostal, ville = :ville, mot_de_passe = :motDePasse " +
             "WHERE no_utilisateur = :id";
 
-    private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     /**
      * Constructs a new UtilisateurDAOImpl object with the provided JdbcTemplate and NamedParameterJdbcTemplate.
      *
-     * @param jdbcTemplate              The JdbcTemplate used for JDBC operations without named parameters.
      * @param namedParameterJdbcTemplate The NamedParameterJdbcTemplate used for JDBC operations with named parameters.
      */
     @Autowired
-    public UtilisateurDAOImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public UtilisateurDAOImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
     // RowMapper to map ResultSet rows to Utilisateur objects
-    RowMapper<Utilisateur> mapper = (rs, i) -> new Utilisateur(rs.getInt("no_utilisateur"),
-            rs.getString("pseudo"),
-            rs.getString("nom"),
-            rs.getString("prenom"),
-            rs.getString("email"),
-            rs.getString("telephone"),
-            rs.getString("rue"),
-            rs.getString("code_postal"),
-            rs.getString("ville"),
-            rs.getString("mot_de_passe"),
-            rs.getInt("credit"),
-            rs.getBoolean("administrateur"));
+    RowMapper<Utilisateur> mapper = (rs, i) ->
+            new Utilisateur(
+                    rs.getInt("no_utilisateur"),
+                    rs.getString("pseudo"),
+                    rs.getString("nom"),
+                    rs.getString("prenom"),
+                    rs.getString("email"),
+                    rs.getString("telephone"),
+                    rs.getString("rue"),
+                    rs.getString("code_postal"),
+                    rs.getString("ville"),
+                    rs.getString("mot_de_passe"),
+                    rs.getInt("credit"),
+                    rs.getBoolean("administrateur")
+            );
 
     /**
      * Retrieves all Utilisateur records from the database.
@@ -83,7 +73,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
      */
     @Override
     public List<Utilisateur> getAll() {
-        return jdbcTemplate.query(SELECT, mapper);
+        return namedParameterJdbcTemplate.query(SELECT, mapper);
     }
 
     /**
@@ -96,7 +86,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         BeanPropertySqlParameterSource namedParameters = new BeanPropertySqlParameterSource(utilisateur);
         namedParameterJdbcTemplate.update(INSERT, namedParameters, keyHolder);
-        utilisateur.setNoUtilisateur(Objects.requireNonNull(keyHolder.getKey()).intValue());
+
+        if (keyHolder.getKey() != null) {
+            utilisateur.setNoUtilisateur(Objects.requireNonNull(keyHolder.getKey()).intValue());
+        }
     }
 
     /**

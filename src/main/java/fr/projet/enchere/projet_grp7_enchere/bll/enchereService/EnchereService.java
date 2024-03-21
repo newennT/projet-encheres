@@ -1,19 +1,26 @@
 package fr.projet.enchere.projet_grp7_enchere.bll.enchereService;
 
-import fr.projet.enchere.projet_grp7_enchere.bo.Article;
 import fr.projet.enchere.projet_grp7_enchere.bo.Enchere;
 
 import java.util.List;
 
+/**
+ * Interface representing an auction service.
+ */
 public interface EnchereService {
 
     /**
-     * Ajoute une enchere
+     * Adds an auction.
+     *
+     * @param enchere The auction to add.
+     * @throws EnchereServiceException If an error occurs while adding the auction.
      */
-    public void addEnchere(Enchere enchere) throws EnchereServiceException;
+    void addEnchere(Enchere enchere) throws EnchereServiceException;
 
     /**
-     * Liste toutes les encheres
+     * Retrieves the list of all auctions.
+     *
+     * @return A list containing all auctions.
      */
-    public List<Enchere> getAll();
+    List<Enchere> getAll();
 }

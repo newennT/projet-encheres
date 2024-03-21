@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<html
-        xmlns:th="http://www.thymeleaf.org"
-        th:replace="~{/layouts/layout :: layout(
-            pageContent=~{:: .main-content},
-            pageTitle=~{:: title},
-            additionalCss=~{}
-        )}"
->
+<html xmlns:th="http://www.thymeleaf.org" lang="en" th:replace="~{/layouts/layout :: layout(
+pageContent=~{:: .main-content},
+pageTitle=~{:: title},
+additionalCss=~{})}">
 
 <title>ENI Enchères - Accueil</title>
 
@@ -14,73 +10,124 @@
 <main class="main-content">
     <H1>Accueil</H1>
 
-
-    <a data-th-href="@{/categories}">Categories</a>
-    <a data-th-href="@{/article}">article</a>
-    <a data-th-href="@{/login}">Connexion</a>
-    <a data-th-href="@{/logout}">Déconnexion</a>
-    <a data-th-href="@{/inscription}">Inscription</a>
-    <a data-th-if="${#ctx.session.currentUser != null}" data-th-href="@{/edit(pseudo=${#ctx.session.currentUser.pseudo})}">Mon profil</a>
-
-    <p data-th-text="${#ctx.session.currentUser != null} ? ${#ctx.session.currentUser.prenom} : 'Non connecté!'"/>
-
-    <table>
-        <tr data-th-each="utilisateur : ${utilisateurs}">
-            <td><a data-th-text="${utilisateur.pseudo}" data-th-href="@{/detail(pseudo=${utilisateur.pseudo})}"></a></td>
-        </tr>
-    </table>
-
-
+    <!-- Section Rechercher une enchère
+    SECTION EN COURS-->
     <section class="section-filtres">
         <h2>Rechercher une enchère</h2>
+        <!-- Formulaire de recherche -->
         <form>
             <div class="filtres">
+                <label for="searchfield"></label>
                 <input type="text" name="searchfield" id="searchfield" placeholder="Le nom de l'article contient...">
-                <select name="categorie">
-                    <option data-th-each="categories : ${lstCategories}"
-                            data-th-text="${categories.libelle}"></option>
-                </select> <br>
+                <label for="categorie"></label>
+                    <select id="categorie" name="categorie">
+                            <option data-th-each="categories : ${lstCategories}"
+                                    data-th-text="${categories.libelle}"></option>
+                    </select>
+                <br>
                 <button type="submit" class="btn-primary btn-primary-fondbleu">Rechercher</button>
             </div>
-            
+
+            <!-- Filtres de recherche avancée -->
             <div th:if="${#ctx.session.currentUser != null}" class="cases-filtres">
                 <div>
-                    <input type="radio" name="achats" id=""><label>Achats</label><br />
-                    <input type="checkbox" name="encheres-ouvertes" id=""><label>Enchères ouvertes</label><br />
-                    <input type="checkbox" name="mes-encheres" id=""><label>Mes enchères</label><br />
-                    <input type="checkbox" name="encheres-remportees" id=""><label>Enchères remportées</label>
+                    <input type="radio" name="achats" id="achats" onclick="toggleAchats(this.checked)">
+                    <label for="achats">Achats</label><br/>
+                    <input type="checkbox" name="encheres-ouvertes" id="encheres-ouvertes" disabled>
+                    <label for="encheres-ouvertes">Enchères ouvertes</label><br/>
+                    <input type="checkbox" name="mes-encheres" id="mes-encheres" disabled>
+                    <label for="mes-encheres">Mes enchères</label><br/>
+                    <input type="checkbox" name="encheres-remportees" id="encheres-remportees" disabled>
+                    <label for="encheres-remportees">Enchères remportées</label>
                 </div>
+
+                <script>
+                    // Fonction pour activer/désactiver les filtres d'achats
+                    function toggleAchats(isChecked) {
+                        // Désactive les filtres d'achats si la case est cochée, les active sinon
+                        document.getElementById("encheres-ouvertes").disabled = !isChecked;
+                        document.getElementById("mes-encheres").disabled = !isChecked;
+                        document.getElementById("encheres-remportees").disabled = !isChecked;
+
+                        // Si les filtres d'achats sont activés, désactive les filtres de ventes et décoche les cases correspondantes
+                        if (isChecked) {
+                            document.getElementById("mes-ventes").checked = false;
+                            document.getElementById("ventes-en-cours").checked = false;
+                            document.getElementById("ventes-non-debutees").checked = false;
+                            document.getElementById("ventes-terminees").checked = false;
+                            document.getElementById("ventes-en-cours").disabled = isChecked;
+                            document.getElementById("ventes-non-debutees").disabled = isChecked;
+                            document.getElementById("ventes-terminees").disabled = isChecked;
+                        }
+                    }
+                </script>
+
                 <div>
-                    <input type="radio" name="achats" id=""><label>Mes ventes</label><br />
-                    <input type="checkbox" name="encheres-ouvertes" id=""><label>Mes ventes en cours</label><br />
-                    <input type="checkbox" name="mes-encheres" id=""><label>Ventes non débutées</label><br />
-                    <input type="checkbox" name="encheres-remportees" id=""><label>Ventes terminées</label>
+                    <input type="radio" name="mes-ventes" id="mes-ventes" onclick="toggleVentes(this.checked)">
+                    <label for="mes-ventes">Mes ventes</label><br/>
+                    <input type="checkbox" name="encheres-ouvertes" id="ventes-en-cours" disabled>
+                    <label for="ventes-en-cours">Mes ventes en cours</label><br/>
+                    <input type="checkbox" name="mes-encheres" id="ventes-non-debutees" disabled>
+                    <label for="ventes-non-debutees">Ventes non débutées</label><br/>
+                    <input type="checkbox" name="encheres-remportees" id="ventes-terminees" disabled>
+                    <label for="ventes-terminees">Ventes terminées</label>
                 </div>
+
+                <script>
+                    // Fonction pour activer/désactiver les filtres de ventes
+                    function toggleVentes(isChecked) {
+                        // Désactive les filtres de ventes si la case est cochée, les active sinon
+                        document.getElementById("ventes-en-cours").disabled = !isChecked;
+                        document.getElementById("ventes-non-debutees").disabled = !isChecked;
+                        document.getElementById("ventes-terminees").disabled = !isChecked;
+
+                        // Si les filtres de ventes sont activés, désactive les filtres d'achats et décoche les cases correspondantes
+                        if (isChecked) {
+                            document.getElementById("achats").checked = false;
+                            document.getElementById("encheres-ouvertes").checked = false;
+                            document.getElementById("mes-encheres").checked = false;
+                            document.getElementById("encheres-remportees").checked = false;
+                            document.getElementById("encheres-ouvertes").disabled = isChecked;
+                            document.getElementById("mes-encheres").disabled = isChecked;
+                            document.getElementById("encheres-remportees").disabled = isChecked;
+                        }
+                    }
+                </script>
+
             </div>
         </form>
     </section>
 
-    <section class="articles" >
-        <article data-th-each="enchere : ${lstEncheres}">
+    <!-- Section Articles -->
+    <section class="articles">
+        <article data-th-each="article : ${lstArticles}"
+                 data-th-if="${article.date_debut_encheres lt T(java.time.LocalDate).now()
+                 and article.date_fin_encheres gt T(java.time.LocalDate).now()}">
 
+            <!-- Informations sur les articles -->
             <div class="infos">
-                <h3 data-th-text="${enchere.article.nom_article}"></h3>
-                <p>par <span data-th-text="${enchere.utilisateur.pseudo}"></span></p>
+                <h3 data-th-text="${article.nom_article}"></h3>
+                <p>par
+                    <a data-th-href="@{utilisateur/details(pseudo=${article.utilisateur.getPseudo()})}">
+                        <span data-th-text="${article.utilisateur.pseudo}"></span>
+                    </a>
+                </p>
                 <div class="infos-details">
                     <div>
                         <p class="infos-details-titre">Prix</p>
-                        <p data-th-text="${enchere.montant_enchere}"> </p>
+                        <p data-th-text="${article.prix_vente}"></p>
                     </div>
                     <div>
                         <p class="infos-details-titre">Fin de l'enchère</p>
-                        <p data-th-text="${enchere.date_enchere}"></p>
+                        <p data-th-text="${article.date_fin_encheres}"></p>
                     </div>
                 </div>
-                <button th:if="${#ctx.session.currentUser != null}" class="btn-primary btn-primary-fondblanc"><a data-th-href="@{/enchere-details(id=${enchere.no_enchere})}"> Voir l'enchère</a></button>
+                <!-- Bouton pour voir les détails de l'enchère -->
+                <button th:if="${#ctx.session.currentUser != null}" class="btn-primary btn-primary-fondblanc"><a
+                        data-th-href="@{encheres/details(id=${article.no_article})}"> Voir l'enchère</a></button>
             </div>
         </article>
     </section>
-            
 </main>
 </body>
 </html>

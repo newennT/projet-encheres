@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Controller class for handling user registration.
@@ -18,6 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class InscriptionController {
     private final UtilisateurService utilisateurService;
 
+    /**
+     * Constructs a new InscriptionController with the provided UtilisateurService.
+     *
+     * @param utilisateurService The UtilisateurService used for user-related operations.
+     */
     @Autowired
     public InscriptionController(UtilisateurService utilisateurService) {
         this.utilisateurService = utilisateurService;
@@ -31,8 +34,8 @@ public class InscriptionController {
      */
     @GetMapping("/inscription")
     public String inscription(Model model) {
-        // Add an empty user object to the model to bind with the registration form
         model.addAttribute("utilisateur", new Utilisateur());
+
         return "view-inscription";
     }
 
@@ -44,36 +47,32 @@ public class InscriptionController {
      * @return Redirect to the index page if registration is successful, otherwise return to the registration page.
      */
     @PostMapping("/inscription")
-    public String inscription(@Valid @ModelAttribute("utilisateur") Utilisateur utilisateur, BindingResult bindingResult) {
-        // Check for validation errors
+    public String inscription(@Valid @ModelAttribute("utilisateur") Utilisateur utilisateur, BindingResult bindingResult,
+                              @RequestParam("motDePasseConfirmation") String motDePasseConfirmation, Model model) {
         if (bindingResult.hasErrors()) {
             return "view-inscription";
         } else {
-            // Check if the pseudo already exists in the database
             Utilisateur similarUtilisateur = utilisateurService.trouverParPseudo(utilisateur.getPseudo());
             if (similarUtilisateur != null) {
-                bindingResult.rejectValue("pseudo", "similarPseudonyme");
+                bindingResult.rejectValue("pseudo", "Un utilisateur possède déjà ce pseudonyme.");
                 return "view-inscription";
             }
 
-            // Check if the email already exists in the database
             Utilisateur similarEmail = utilisateurService.trouverParEmail(utilisateur.getEmail());
             if (similarEmail != null) {
-                bindingResult.rejectValue("email", "similarEmail");
+                bindingResult.rejectValue("email", "Un utilisateur possède déjà cette adresse email.");
                 return "view-inscription";
             }
 
-            // Check if password confirmation matches
-            if (!utilisateur.getMotDePasse().equals(utilisateur.getMotDePasseConfirmation())) {
-                bindingResult.rejectValue("motDePasseConfirmation", "motDePasseConfirmation");
+            if (!utilisateur.getMotDePasse().equals(motDePasseConfirmation)) {
+                model.addAttribute("motDePasseConfirmation", "Les mots de passe ne correspondent pas.");
                 return "view-inscription";
             }
 
             utilisateur.setCredit(100);
             utilisateurService.ajouterUtilisateur(utilisateur);
 
-            return "redirect:/view-index";
+            return "redirect:/";
         }
     }
-
 }

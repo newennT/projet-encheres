@@ -13,15 +13,15 @@ public class Utilisateur {
     private long noUtilisateur;
 
     @Size(min = 4, max = 20, message = "{validation.pseudo.size}")
-    @Pattern(regexp = "^[a-zA-Z0-9_-]*$", message = "{validation.pseudo.pattern}")
+    @Pattern(regexp = "^[a-zA-Z0-9À-ÿ\\-]+$", message = "{validation.pseudo.pattern}")
     private String pseudo;
 
     @Size(min = 4, max = 20, message = "{validation.nom.size}")
-    @Pattern(regexp = "^[a-zA-Z-]+$", message = "{validation.nom.pattern}")
+    @Pattern(regexp = "^[a-zA-Z0-9À-ÿ\\-]+$", message = "{validation.nom.pattern}")
     private String nom;
 
     @Size(min = 4, max = 20, message = "{validation.prenom.size}")
-    @Pattern(regexp = "^[a-zA-Z-]+$", message = "{validation.prenom.pattern}")
+    @Pattern(regexp = "^[a-zA-Z0-9À-ÿ\\-]+$", message = "{validation.prenom.pattern}")
     private String prenom;
 
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "{validation.email.pattern}")
@@ -30,20 +30,18 @@ public class Utilisateur {
     @Pattern(regexp = "^0[1-9]([-. ]?[0-9]{2}){4}$", message = "{validation.telephone.pattern}")
     private String telephone;
 
-    @Pattern(regexp = "^[a-zA-Z0-9\\s,'-]*$", message = "{validation.rue.pattern}")
+    @Pattern(regexp = "^[a-zA-Z0-9À-ÿ\\- ]+$", message = "{validation.rue.pattern}")
     private String rue;
 
     @Pattern(regexp = "^\\d{5}$", message = "{validation.codePostal.pattern}")
     private String codePostal;
 
     @Size(min = 4, max = 20, message = "{validation.ville.size}")
-    @Pattern(regexp = "^[a-zA-Z-]+$", message = "{validation.ville.pattern}")
+    @Pattern(regexp = "^[a-zA-Z0-9À-ÿ\\-]+$", message = "{validation.ville.pattern}")
     private String ville;
 
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "{validation.motDePasse.pattern}")
     private String motDePasse;
-
-    private String motDePasseConfirmation;
 
     private int credit;
 
@@ -58,17 +56,17 @@ public class Utilisateur {
     /**
      * Parameterized constructor to create a new Utilisateur.
      *
-     * @param pseudo          The username.
-     * @param nom             The last name.
-     * @param prenom          The first name.
-     * @param email           The email address.
-     * @param telephone       The telephone number.
-     * @param rue             The street address.
-     * @param codePostal      The postal code.
-     * @param ville           The city.
-     * @param motDePasse      The password.
-     * @param credit          The user's credit.
-     * @param administrateur  Whether the user is an administrator or not.
+     * @param pseudo         The username.
+     * @param nom            The last name.
+     * @param prenom         The first name.
+     * @param email          The email address.
+     * @param telephone      The telephone number.
+     * @param rue            The street address.
+     * @param codePostal     The postal code.
+     * @param ville          The city.
+     * @param motDePasse     The password.
+     * @param credit         The user's credit.
+     * @param administrateur Whether the user is an administrator or not.
      */
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
                        String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
@@ -88,18 +86,18 @@ public class Utilisateur {
     /**
      * Parameterized constructor to create a Utilisateur with an existing user ID.
      *
-     * @param noUtilisateur   The user ID.
-     * @param pseudo          The username.
-     * @param nom             The last name.
-     * @param prenom          The first name.
-     * @param email           The email address.
-     * @param telephone       The telephone number.
-     * @param rue             The street address.
-     * @param codePostal      The postal code.
-     * @param ville           The city.
-     * @param motDePasse      The password.
-     * @param credit          The user's credit.
-     * @param administrateur  Whether the user is an administrator or not.
+     * @param noUtilisateur  The user ID.
+     * @param pseudo         The username.
+     * @param nom            The last name.
+     * @param prenom         The first name.
+     * @param email          The email address.
+     * @param telephone      The telephone number.
+     * @param rue            The street address.
+     * @param codePostal     The postal code.
+     * @param ville          The city.
+     * @param motDePasse     The password.
+     * @param credit         The user's credit.
+     * @param administrateur Whether the user is an administrator or not.
      */
     public Utilisateur(long noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
                        String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
@@ -199,14 +197,6 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
     }
 
-    public String getMotDePasseConfirmation() {
-        return motDePasseConfirmation;
-    }
-
-    public void setMotDePasseConfirmation(String motDePasseConfirmation) {
-        this.motDePasseConfirmation = motDePasseConfirmation;
-    }
-
     public int getCredit() {
         return credit;
     }
@@ -250,28 +240,5 @@ public class Utilisateur {
     public int hashCode() {
         return Objects.hash(getNoUtilisateur(), getPseudo(), getNom(), getPrenom(), getEmail(), getTelephone(),
                 getRue(), getCodePostal(), getVille(), getMotDePasse(), getCredit(), isAdministrateur());
-    }
-
-    /**
-     * Generates a string representation of the Utilisateur object for debugging and logging purposes.
-     *
-     * @return A formatted string containing the values of Utilisateur fields.
-     */
-    @Override
-    public String toString() {
-        return "Utilisateur{" +
-                "noUtilisateur=" + noUtilisateur +
-                ", pseudo='" + pseudo + '\'' +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", email='" + email + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", rue='" + rue + '\'' +
-                ", codePostal='" + codePostal + '\'' +
-                ", ville='" + ville + '\'' +
-                ", motDePasse='" + motDePasse + '\'' +
-                ", credit=" + credit +
-                ", administrateur=" + administrateur +
-                '}';
     }
 }

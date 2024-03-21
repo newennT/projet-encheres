@@ -1,15 +1,17 @@
 package fr.projet.enchere.projet_grp7_enchere.bll.retraitService;
 
-import fr.projet.enchere.projet_grp7_enchere.bo.Article;
 import fr.projet.enchere.projet_grp7_enchere.bo.Retrait;
 
-import java.util.List;
-
+/**
+ * Interface representing a withdrawal service.
+ */
 public interface RetraitService {
 
     /**
-     * Ajoute une date / instance de retrait
+     * Adds a withdrawal date/instance.
+     *
+     * @param retrait The withdrawal instance to add.
+     * @throws RetraitServiceException If an error occurs while adding the withdrawal.
      */
-    public void addRetrait(Retrait retrait) throws RetraitServiceException;
-
+    void addRetrait(Retrait retrait) throws RetraitServiceException;
 }

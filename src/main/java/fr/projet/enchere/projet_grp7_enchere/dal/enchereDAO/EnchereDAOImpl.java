@@ -1,10 +1,7 @@
 package fr.projet.enchere.projet_grp7_enchere.dal.enchereDAO;
 
-import fr.projet.enchere.projet_grp7_enchere.bll.articleService.ArticleService;
-import fr.projet.enchere.projet_grp7_enchere.bll.retraitService.RetraitService;
 import fr.projet.enchere.projet_grp7_enchere.bo.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,14 +13,37 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Data Access Object (DAO) implementation for Enchere entities.
+ * This class provides methods to interact with the database for Enchere entities.
+ */
 @Repository
 public class EnchereDAOImpl implements EnchereDAO {
 
-    final String SELECT_BY_ID = "SELECT * FROM ENCHERES WHERE no_enchere=:id";
+    final String INSERT = "INSERT INTO ENCHERES (no_article, no_utilisateur, date_enchere, montant_enchere) " +
+            "VALUES (:no_article, :no_utilisateur, :date_enchere, :montant_enchere)";
 
+    final String SELECT = "SELECT E.*, U.*, AV.* FROM ENCHERES E " +
+            "JOIN UTILISATEURS U ON E.no_utilisateur = U.no_utilisateur " +
+            "JOIN ARTICLES_VENDUS AV ON E.no_article = AV.no_article";
+
+    private final NamedParameterJdbcTemplate jdbcTemplate;
+
+    /**
+     * Constructs an EnchereDAOImpl with a NamedParameterJdbcTemplate instance.
+     *
+     * @param jdbcTemplate The NamedParameterJdbcTemplate instance.
+     */
     @Autowired
-    private NamedParameterJdbcTemplate jdbcTemplate;
+    public EnchereDAOImpl(NamedParameterJdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
+    /**
+     * Inserts an Enchere entity into the database.
+     *
+     * @param enchere The Enchere entity to insert.
+     */
     @Override
     public void insert(Enchere enchere) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -35,37 +55,37 @@ public class EnchereDAOImpl implements EnchereDAO {
         namedParameters.addValue("date_enchere", enchere.getDate_enchere());
         namedParameters.addValue("montant_enchere", enchere.getMontant_enchere());
 
-        jdbcTemplate.update("INSERT INTO ENCHERES (no_article, no_utilisateur, date_enchere, montant_enchere) " +
-                "VALUES (:no_article, :no_utilisateur, :date_enchere, :montant_enchere)", namedParameters, keyHolder);
+        jdbcTemplate.update(INSERT, namedParameters, keyHolder);
 
-        if (keyHolder != null && keyHolder.getKey() != null) {
+        if (keyHolder.getKey() != null) {
             enchere.setNo_enchere(keyHolder.getKey().intValue());
         }
     }
 
-
-
-
+    /**
+     * Retrieves all Enchere entities from the database.
+     *
+     * @return A list containing all Enchere entities.
+     */
     @Override
     public List<Enchere> getAll() {
-        return jdbcTemplate.query("SELECT E.*, U.*, AV.* " +
-                "FROM ENCHERES E " +
-                "JOIN UTILISATEURS U ON E.no_utilisateur = U.no_utilisateur " +
-                "JOIN ARTICLES_VENDUS AV ON E.no_article = AV.no_article", new EnchereRowMapper());
+        return jdbcTemplate.query(SELECT, new EnchereRowMapper());
     }
 
     /**
-     * Classe de mapping pour gérer l'association vers Enchere
+     * RowMapper class to handle mapping for Enchere objects.
      */
     static class EnchereRowMapper implements RowMapper<Enchere> {
         @Override
         public Enchere mapRow(ResultSet rs, int rowNum) throws SQLException {
             Enchere enchere = new Enchere();
+
+            // Mapping enchere data from the database
             enchere.setNo_enchere(rs.getInt("no_enchere"));
             enchere.setDate_enchere(rs.getDate("date_enchere").toLocalDate());
             enchere.setMontant_enchere(rs.getInt("montant_enchere"));
 
-            // Association vers l'utilisateur
+            // Association with the bidding user
             Utilisateur utilisateur = new Utilisateur();
             utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
             utilisateur.setPseudo(rs.getString("pseudo"));
@@ -81,7 +101,7 @@ public class EnchereDAOImpl implements EnchereDAO {
             utilisateur.setAdministrateur(rs.getBoolean("administrateur"));
             enchere.setUtilisateur(utilisateur);
 
-            // Association vers l'article
+            // Association with the article being bid on
             Article article = new Article();
             article.setNo_article(rs.getInt("no_article"));
             article.setNom_article(rs.getString("nom_article"));
@@ -95,6 +115,4 @@ public class EnchereDAOImpl implements EnchereDAO {
             return enchere;
         }
     }
-
-
 }

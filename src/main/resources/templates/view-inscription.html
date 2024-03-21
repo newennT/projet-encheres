@@ -11,63 +11,61 @@
 <title>ENI Enchères - Accueil</title>
 
 <body>
-    <main class="main-content">
-        <H1>Inscription</H1>
+<main class="main-content">
+    <H1>Inscription</H1>
 
-<a data-th-href="@{/}">Accueil</a>
-<p data-th-text="${#ctx.session.currentUser != null} ? ${#ctx.session.currentUser} : 'Non connecté !'"/>
+    <form data-th-action="@{/inscription}" method="post" data-th-object="${utilisateur} " class="form-inscription">
+        <div>
+            <label for="username">Pseudonyme</label>
+            <input type="text" id="username" name="username" autofocus="autofocus" data-th-field="*{pseudo}"/>
+            <span style="color: red" data-th-if="${#fields.hasErrors('pseudo')}" data-th-errors="*{pseudo}"></span>
 
-        <form data-th-action="@{/inscription}" method="post" data-th-object="${utilisateur} " class="form-inscription">
-            <div>
-                <label for="username">Pseudonyme</label>
-                <input type="text" id="username" name="username" autofocus="autofocus" data-th-field="*{pseudo}"/>
-                <span style="color: red" data-th-if="${#fields.hasErrors('pseudo')}" data-th-errors="*{pseudo}"></span>
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" autofocus="autofocus" data-th-field="*{nom}"/>
+            <span style="color: red" data-th-if="${#fields.hasErrors('nom')}" data-th-errors="*{nom}"></span>
 
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="prenom" autofocus="autofocus" data-th-field="*{prenom}"/>
+            <span style="color: red" data-th-if="${#fields.hasErrors('prenom')}" data-th-errors="*{prenom}"></span>
 
-                <label for="nom">Nom</label>
-                <input type="text" id="nom" name="nom" autofocus="autofocus" data-th-field="*{nom}"/>
-                <span style="color: red" data-th-if="${#fields.hasErrors('nom')}" data-th-errors="*{nom}"></span>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autofocus="autofocus" data-th-field="*{email}"/>
+            <span style="color: red" data-th-if="${#fields.hasErrors('email')}" data-th-errors="*{email}"></span>
 
-                <label for="prenom">Prénom</label>
-                <input type="text" id="prenom" name="prenom" autofocus="autofocus" data-th-field="*{prenom}"/>
-                <span style="color: red" data-th-if="${#fields.hasErrors('prenom')}" data-th-errors="*{prenom}"></span>
+            <label for="telephone">Téléphone</label>
+            <input type="tel" id="telephone" name="telephone" autofocus="autofocus" data-th-field="*{telephone}"/>
+            <span style="color: red" data-th-if="${#fields.hasErrors('telephone')}"
+                  data-th-errors="*{telephone}"></span>
+        </div>
 
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" autofocus="autofocus" data-th-field="*{email}"/>
-                <span style="color: red" data-th-if="${#fields.hasErrors('email')}" data-th-errors="*{email}"></span>
+        <div>
+            <label for="rue">Rue</label>
+            <input type="text" id="rue" name="rue" autofocus="autofocus" data-th-field="*{rue}"/>
+            <span style="color: red" data-th-if="${#fields.hasErrors('rue')}" data-th-errors="*{rue}"></span>
 
-                <label for="telephone">Téléphone</label>
-                <input type="tel" id="telephone" name="telephone" autofocus="autofocus" data-th-field="*{telephone}"/>
-                <span style="color: red" data-th-if="${#fields.hasErrors('telephone')}" data-th-errors="*{telephone}"></span>
-            </div>
+            <label for="codePostal">Code postal</label>
+            <input type="text" id="codePostal" name="codePostal" autofocus="autofocus" data-th-field="*{codePostal}"/>
+            <span style="color: red" data-th-if="${#fields.hasErrors('codePostal')}"
+                  data-th-errors="*{codePostal}"></span>
 
-            <div>
-                <label for="rue">Rue</label>
-                <input type="text" id="rue" name="rue" autofocus="autofocus" data-th-field="*{rue}"/>
-                <span style="color: red" data-th-if="${#fields.hasErrors('rue')}" data-th-errors="*{rue}"></span>
+            <label for="ville">Ville</label>
+            <input type="text" id="ville" name="ville" autofocus="autofocus" data-th-field="*{ville}"/>
+            <span style="color: red" data-th-if="${#fields.hasErrors('ville')}" data-th-errors="*{ville}"></span>
 
-                <label for="codePostal">Code postal</label>
-                <input type="text" id="codePostal" name="codePostal" autofocus="autofocus" data-th-field="*{codePostal}"/>
-                <span style="color: red" data-th-if="${#fields.hasErrors('codePostal')}" data-th-errors="*{codePostal}"></span>
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" data-th-field="*{motDePasse}"/>
+            <span style="color: red" data-th-if="${#fields.hasErrors('motDePasse')}"
+                  data-th-errors="*{motDePasse}"></span>
 
-                <label for="ville">Ville</label>
-                <input type="text" id="ville" name="ville" autofocus="autofocus" data-th-field="*{ville}"/>
-                <span style="color: red" data-th-if="${#fields.hasErrors('ville')}" data-th-errors="*{ville}"></span>
+            <label for="passwordConfirmation">Confirmer le mot de passe</label>
+            <input type="password" id="passwordConfirmation" name="motDePasseConfirmation">
+            <span style="color: red" data-th-if="${motDePasseConfirmation != null}"
+                  data-th-text="${motDePasseConfirmation}"></span>
 
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" data-th-field="*{motDePasse}"/>
-                <span style="color: red" data-th-if="${#fields.hasErrors('motDePasse')}" data-th-errors="*{motDePasse}"></span>
-
-                <label for="passwordConfirmation">Confirmer le mot de passe</label>
-                <input type="password" id="passwordConfirmation" name="passwordConfirmation" data-th-field="*{motDePasseConfirmation}">
-                <span style="color: red" data-th-if="${#fields.hasErrors('motDePasseConfirmation')}" data-th-errors="*{motDePasseConfirmation}"></span>
-
-                <button type="submit" value="Inscription" class="btn-primary btn-primary-fondblanc">Inscription</button>
-                <button class="btn-secondary"><a href="@{/}">Annuler</a></button>
-            </div>
-
-
-        </form>
-    </main>
+            <button type="submit" value="Inscription" class="btn-primary btn-primary-fondblanc">Inscription</button>
+            <button class="btn-secondary"><a data-th-href="@{/}">Annuler</a></button>
+        </div>
+    </form>
+</main>
 </body>
 </html>

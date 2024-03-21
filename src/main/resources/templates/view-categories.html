@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="~{/layouts/layout :: layout(
+            pageContent=~{:: .main-content},
+            pageTitle=~{:: title},
+            additionalCss=~{}
+        )}"
+>
+
+<title>Catégories</title>
+<body>
+
+<main class="main-content">
+
+    <h1>Catégories</h1>
+
+    <h2>Liste des catégories</h2>
+    <p data-th-each="categorie : ${lstCategories}">
+        <span data-th-text="${categorie.libelle}"/>
+    </p>
+
+    <h2>Ajouter une catégorie</h2>
+    <form data-th-action="@{/administrator/categories}" data-th-object="${categorie}" method="post">
+        <label for="libelle">Libelle</label>
+        <input type="text" id="libelle" data-th-field="*{libelle}"/>
+        <span data-th-if="${#fields.hasErrors('libelle')}" data-th-errors="*{libelle}"></span><br>
+
+        <button type="submit" value="ajouter" class="btn-primary btn-primary-fondblanc">Ajouter</button>
+    </form>
+</main>
+</body>
+</html>
