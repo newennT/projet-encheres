@@ -55,9 +55,9 @@
         <div>
             <h3>Liste des enchères</h3>
             <span data-th-each="enchere : ${encheres}"
-                 data-th-if="${enchere.article.no_article} == ${article.no_article}">
-                <p data-th-text="${enchere.utilisateur.pseudo} + ' à misé(e) ' + ${enchere.montant_enchere} +
-                ' points le ' + ${enchere.date_enchere} + '.'"></p>
+                  data-th-if="${enchere.article.no_article} == ${article.no_article}"
+                  data-th-text="${enchere.utilisateur.pseudo} + ' à misé(e) ' + ${enchere.montant_enchere} +
+                ' points le ' + ${enchere.date_enchere} + '.'">
             </span>
         </div>
     </div>
