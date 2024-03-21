@@ -16,7 +16,7 @@ public class StorageService {
     @Value("${file.upload-dir}")
     private String uploadDir;
 
-    public void store(MultipartFile file) throws IOException {
+    public String store(MultipartFile file) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         Path uploadPath = Paths.get(uploadDir);
 
@@ -31,6 +31,7 @@ public class StorageService {
         } catch (IOException e) {
             throw new IOException("Could not store file " + fileName + ". Please try again!", e);
         }
+        return fileName;
     }
 
     public String getUploadDir() {
