@@ -11,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-//TODO - Gestion des utilisateur -> implémentation de la modification de son profil EN COURS
-
 /**
  * Controller class responsible for handling requests related to user details and profiles.
  */
@@ -21,12 +19,6 @@ import org.springframework.web.bind.annotation.*;
 public class UtilisateurController {
 
     private final UtilisateurService utilisateurService;
-
-    //TODO - tests sur l'affichage ou non des erreurs liés aux changement de mot de passe
-    // ou vérification du mot de passe actuel
-    private boolean erreurMotDePasseNouveau = false;
-    private boolean erreurMotDePasseActuel = false;
-    private boolean erreurMotDePasseConfirmation = false;
 
     /**
      * Constructor for the UtilisateurController class.
@@ -41,18 +33,18 @@ public class UtilisateurController {
     /**
      * Handles GET requests for displaying details of a specific user.
      *
-     * @param pseudo The username (pseudo) of the user to be displayed.
-     * @param model  The model to add attributes for the view.
+     * @param no    The no (id) of the user to be displayed.
+     * @param model The model to add attributes for the view.
      * @return The view for displaying the details of the user.
      */
     @GetMapping("/details")
-    public String afficherUnUtilisateur(@RequestParam(name = "pseudo") String pseudo, Model model) {
-        if (pseudo != null) {
-            Utilisateur utilisateur = utilisateurService.trouverParPseudo(pseudo);
-            if (utilisateur != null) {
-                model.addAttribute("utilisateur", utilisateur);
-                return "view-user-detail";
-            }
+    public String afficherUnUtilisateur(@RequestParam(name = "no") long no, Model model) {
+        Utilisateur utilisateur = utilisateurService.trouverParNo(no);
+
+        if (utilisateur != null) {
+            model.addAttribute("utilisateur", utilisateur);
+
+            return "view-user-detail";
         }
 
         return "redirect:/";
@@ -61,44 +53,38 @@ public class UtilisateurController {
     /**
      * Handles GET requests for displaying the profile of a user.
      *
-     * @param pseudo The username (pseudo) of the user whose profile is to be displayed.
-     * @param model  The model to add attributes for the view.
+     * @param no    The no (id) of the user whose profile is to be displayed.
+     * @param model The model to add attributes for the view.
      * @return The view for displaying the user's profile.
      */
     @GetMapping("/my-profil")
-    public String afficherProfil(@RequestParam(name = "pseudo") String pseudo, Model model) {
-        if (pseudo != null) {
-            Utilisateur profil = utilisateurService.trouverParPseudo(pseudo);
-            if (profil != null) {
-                model.addAttribute("profil", profil);
-                model.addAttribute("erreurMotDePasseNouveau", erreurMotDePasseNouveau);
-                model.addAttribute("erreurMotDePasseActuel", erreurMotDePasseActuel);
-                model.addAttribute("erreurMotDePasseConfirmation", erreurMotDePasseConfirmation);
+    public String afficherProfil(@RequestParam(name = "no") long no, Model model) {
+        Utilisateur profil = utilisateurService.trouverParNo(no);
 
-                return "view-profil";
-            }
+        if (profil != null) {
+            model.addAttribute("profil", profil);
+
+            return "view-profil";
         }
+
         return "redirect:/";
     }
-
-    //TODO - Edition du profil - EN COURS
-    // bindingResults error alors qu'il n'est pas sensé y avoir d'erreur déclenchée
 
     /**
      * Handles the POST request for modifying user profile.
      *
-     * @param profil                 The user profile data to be modified
-     * @param bindingResult          BindingResult object to hold validation errors
-     * @param motDePasseNouveau      New password input
-     * @param motDePasseActuel       Current password input
-     * @param motDePasseConfirmation Confirmation of the new password input
+     * @param profil        The user profile data to be modified
+     * @param bindingResult BindingResult object to hold validation errors
      * @return The view name to redirect to after the modification
      */
     @PostMapping("/my-profil")
-    public String modificationProfil(@Valid @ModelAttribute("profil") Utilisateur profil, BindingResult bindingResult,
-                                     @RequestParam(name = "motDePasseNouveau", required = false) String motDePasseNouveau,
-                                     @RequestParam(name = "motDePasseActuel") String motDePasseActuel,
-                                     @RequestParam(name = "motDePasseConfirmation", required = false) String motDePasseConfirmation) {
+    public String modificationProfil(@Valid @ModelAttribute("profil") Utilisateur profil, BindingResult bindingResult, Model model,
+                                     @RequestParam(name = "nouveauMotDePasse", required = false)
+                                     String nouveauMotDePasse,
+                                     @RequestParam(name = "confirmationNouveauMotDePasse", required = false)
+                                     String confirmationNouveauMotDePasse) {
+        boolean mdpCheck = false;
+
         // Check for validation errors
         if (bindingResult.hasErrors()) {
             return "view-profil";
@@ -110,7 +96,7 @@ public class UtilisateurController {
             Utilisateur similarPseudo = utilisateurService.trouverParPseudo(profil.getPseudo());
             if (similarPseudo != null) {
                 if (currentUser.getNoUtilisateur() != similarPseudo.getNoUtilisateur()) {
-                    bindingResult.rejectValue("pseudo", "similarPseudonyme");
+                    bindingResult.rejectValue("pseudo", "Un utilisateur possède déjà ce pseudonyme.");
                     return "view-profil";
                 }
             }
@@ -119,38 +105,44 @@ public class UtilisateurController {
             Utilisateur similarEmail = utilisateurService.trouverParEmail(profil.getEmail());
             if (similarEmail != null) {
                 if (currentUser.getNoUtilisateur() != similarEmail.getNoUtilisateur()) {
-                    bindingResult.rejectValue("email", "similarEmail");
+                    bindingResult.rejectValue("email", "Un utilisateur possède déjà cette adresse email.");
                     return "view-profil";
                 }
-            }
-
-            // Check if actual password is ok
-            if (!utilisateurService.doPasswordsMatch(motDePasseActuel, currentUser.getMotDePasse())) {
-                erreurMotDePasseActuel = true;
-                return "view-profil";
             }
 
             // Checks if there is a new password (pattern + confirmation)
-            if (motDePasseNouveau != null) {
-
-                //Check if the new password matches with the pattern
-                if (!utilisateurService.isValidPassword(motDePasseNouveau)) {
-                    erreurMotDePasseNouveau = true;
+            if (nouveauMotDePasse != null && !nouveauMotDePasse.isEmpty() && confirmationNouveauMotDePasse != null
+                    && !confirmationNouveauMotDePasse.isEmpty()) {
+                if (!utilisateurService.isValidPassword(nouveauMotDePasse)) {
+                    model.addAttribute("invalidNewPassword",
+                            "Le mot de passe doit contenir au moins 8 caractères, dont au moins une lettre " +
+                                    "minuscule, une lettre majuscule, un chiffre et un caractère spécial parmi @$!%*?&.");
                     return "view-profil";
                 }
 
-                //Check if the confirmation matches with the new password
-                if (!motDePasseConfirmation.equals(motDePasseNouveau)) {
-                    erreurMotDePasseConfirmation = true;
+                if (!nouveauMotDePasse.equals(confirmationNouveauMotDePasse)) {
+                    model.addAttribute("newPasswordConfirmation", "Les mots de passe ne correspondent pas.");
                     return "view-profil";
-                } else {
-                    profil.setMotDePasse(motDePasseNouveau);
                 }
+
+                mdpCheck = true;
             }
 
+            // Check if actual password is ok
+            if (!utilisateurService.doPasswordsMatch(profil.getMotDePasse(), currentUser.getMotDePasse())) {
+                model.addAttribute("motDePasseCheck", "Mot de passe incorrect.");
+                return "view-profil";
+            }
+
+            // Set the new password if mdpCheck is valid
+            if(mdpCheck){
+                profil.setMotDePasse(nouveauMotDePasse);
+            }
+
+            profil.setNoUtilisateur(currentUser.getNoUtilisateur());
             utilisateurService.modifierUtilisateur(profil);
 
-            return "redirect:/utilisateur/my-profil";
+            return "redirect:/logout";
         }
     }
 
@@ -170,6 +162,7 @@ public class UtilisateurController {
             utilisateurService.supprimerUtilisateur(currentUser);
             return "redirect:/logout";
         }
+
         return "redirect:/";
     }
 

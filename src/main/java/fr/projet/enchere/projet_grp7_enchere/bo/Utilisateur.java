@@ -241,4 +241,22 @@ public class Utilisateur {
         return Objects.hash(getNoUtilisateur(), getPseudo(), getNom(), getPrenom(), getEmail(), getTelephone(),
                 getRue(), getCodePostal(), getVille(), getMotDePasse(), getCredit(), isAdministrateur());
     }
+
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "noUtilisateur=" + noUtilisateur +
+                ", pseudo='" + pseudo + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", email='" + email + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", rue='" + rue + '\'' +
+                ", codePostal='" + codePostal + '\'' +
+                ", ville='" + ville + '\'' +
+                ", motDePasse='" + motDePasse + '\'' +
+                ", credit=" + credit +
+                ", administrateur=" + administrateur +
+                '}';
+    }
 }

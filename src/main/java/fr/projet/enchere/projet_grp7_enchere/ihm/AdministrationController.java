@@ -50,16 +50,18 @@ public class AdministrationController {
     /**
      * Handles the request to delete a user.
      *
-     * @param pseudo The username of the user to delete.
+     * @param no The no (id) of the user to delete.
      * @return Redirection to the home page.
      */
     @GetMapping("/delete-user")
-    public String deleteUser(@RequestParam(name = "pseudo") String pseudo) {
+    public String deleteUser(@RequestParam(name = "no") long no) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Utilisateur currentUser = utilisateurService.trouverParPseudo(authentication.getName());
 
         if (currentUser.isAdministrateur()) {
-            Utilisateur userToDelete = utilisateurService.trouverParPseudo(pseudo);
+            Utilisateur userToDelete = utilisateurService.trouverParNo(no);
+
+            
             if (userToDelete != null) {
                 utilisateurService.supprimerUtilisateur(userToDelete);
                 return "redirect:/";

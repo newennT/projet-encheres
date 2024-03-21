@@ -40,7 +40,9 @@
             <p data-th-text="*{retrait.getCode_postal()}"></p>
 
             <p class="infos-details-titre">Vendeur</p>
-            <p data-th-text="*{utilisateur.getPseudo()}"></p>
+            <a data-th-href="@{/utilisateur/details(no=${article.utilisateur.getNoUtilisateur()})}">
+                <p data-th-text="*{utilisateur.getPseudo()}"></p>
+            </a>
         </div>
 
         <!--<label class="infos-details-titre" for="proposition">Ma proposition</label>

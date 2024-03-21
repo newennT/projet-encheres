@@ -108,7 +108,7 @@ additionalCss=~{})}">
             <div class="infos">
                 <h3 data-th-text="${article.nom_article}"></h3>
                 <p>par
-                    <a data-th-href="@{utilisateur/details(pseudo=${article.utilisateur.getPseudo()})}">
+                    <a data-th-href="@{/utilisateur/details(no=${article.utilisateur.getNoUtilisateur()})}">
                         <span data-th-text="${article.utilisateur.pseudo}"></span>
                     </a>
                 </p>
@@ -122,9 +122,10 @@ additionalCss=~{})}">
                         <p data-th-text="${article.date_fin_encheres}"></p>
                     </div>
                 </div>
+
                 <!-- Bouton pour voir les détails de l'enchère -->
                 <button th:if="${#ctx.session.currentUser != null}" class="btn-primary btn-primary-fondblanc"><a
-                        data-th-href="@{encheres/details(id=${article.no_article})}"> Voir l'enchère</a></button>
+                        data-th-href="@{/encheres/details(id=${article.no_article})}"> Voir l'enchère</a></button>
             </div>
         </article>
     </section>

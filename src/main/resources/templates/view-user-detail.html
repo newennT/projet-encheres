@@ -59,7 +59,7 @@
 
     <div data-th-if="${#ctx.session.currentUser != null && #ctx.session.currentUser == utilisateur}">
         <button class="btn-primary btn-primary-fondblanc"><a
-                data-th-href="@{utilisateur/my-profil(pseudo=${#ctx.session.currentUser.pseudo})}">Modifier</a>
+                data-th-href="@{/utilisateur/my-profil(no=${#ctx.session.currentUser.noUtilisateur})}">Modifier</a>
         </button>
     </div>
 
@@ -67,7 +67,7 @@
     and #ctx.session.currentUser != utilisateur
     and #ctx.session.currentUser.isAdministrateur()}">
         <button type="button" class="btn-secondary"><a
-                data-th-href="@{/Administrator/delete-user(pseudo=${utilisateur.pseudo})}">
+                data-th-href="@{/administrator/delete-user(no=${utilisateur.noUtilisateur})}">
             supprimer un utilisateur</a>
         </button>
     </div>

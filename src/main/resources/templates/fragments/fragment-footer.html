@@ -14,7 +14,7 @@
                 <li th:if="${#ctx.session.currentUser == null}"><a data-th-href="@{/inscription}">S'inscrire</a></li>
                 <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/encheres/ajout-article}">Vendre un article</a></li>
                 <li th:if="${#ctx.session.currentUser != null}"><a
-                        data-th-href="@{/utilisateur/my-profil(pseudo=${#ctx.session.currentUser.pseudo})}">Mon profil</a></li>
+                        data-th-href="@{/utilisateur/my-profil(no=${#ctx.session.currentUser.noUtilisateur})}">Mon profil</a></li>
                 <li style="color: red" th:if="${#ctx.session.currentUser != null and #ctx.session.currentUser.isAdministrateur()}">
                     <a data-th-href="@{/administrator/categories}">Gestion des catégories</a>
                 </li>

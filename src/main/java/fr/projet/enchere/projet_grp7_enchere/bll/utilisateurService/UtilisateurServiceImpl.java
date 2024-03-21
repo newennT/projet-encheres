@@ -56,6 +56,17 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     /**
+     * Retrieves a Utilisateur record from the database based on the provided no (id).
+     *
+     * @param no The no (id) of the Utilisateur to be retrieved.
+     * @return The Utilisateur object matching the provided pseudo.
+     */
+    @Override
+    public Utilisateur trouverParNo(long no) {
+        return utilisateurDAO.findByNo(no);
+    }
+
+    /**
      * Retrieves a Utilisateur record from the database based on the provided email.
      *
      * @param email The email of the Utilisateur to be retrieved.

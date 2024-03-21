@@ -29,13 +29,15 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
             ":administrateur)";
     final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo=:pseudo";
 
+    final String SELECT_BY_NO = "SELECT * FROM UTILISATEURS WHERE no_utilisateur=:no";
+
     final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=:email";
 
     final String DELETE_USER = "DELETE FROM UTILISATEURS WHERE no_utilisateur=:no_utilisateur";
 
     final String UPDATE = "UPDATE UTILISATEURS SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, " +
             "telephone = :telephone, rue = :rue, code_postal = :codePostal, ville = :ville, mot_de_passe = :motDePasse " +
-            "WHERE no_utilisateur = :id";
+            "WHERE no_utilisateur = :noUtilisateur";
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -112,6 +114,25 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     }
 
     /**
+     * Retrieves a Utilisateur record from the database based on the provided no (id).
+     *
+     * @param no The no (id) of the Utilisateur to be retrieved.
+     * @return The Utilisateur object matching the provided pseudo.
+     */
+    @Override
+    public Utilisateur findByNo(long no) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("no", no);
+        List<Utilisateur> utilisateurs = namedParameterJdbcTemplate.query(SELECT_BY_NO, namedParameters,
+                new BeanPropertyRowMapper<>(Utilisateur.class));
+        if (utilisateurs.isEmpty()) {
+            return null;
+        } else {
+            return utilisateurs.get(0);
+        }
+    }
+
+    /**
      * Retrieves a Utilisateur record from the database based on the provided email.
      *
      * @param email The email of the Utilisateur to be retrieved.
@@ -149,9 +170,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
      */
     @Override
     public void update(Utilisateur utilisateur) {
-        System.out.println(utilisateur);
-        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
-        namedParameters.addValue("utilisateur", utilisateur);
+        BeanPropertySqlParameterSource namedParameters = new BeanPropertySqlParameterSource(utilisateur);
         namedParameterJdbcTemplate.update(UPDATE, namedParameters);
     }
 }

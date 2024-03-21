@@ -61,6 +61,21 @@ input[type="text"], input[type="password"], input[type="tel"], input[type="email
 
 /* Mise en forme header et footer */
 
+.header-user-info {
+    color: #2CDCF4;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+
+}
+
+#header-separator{
+    color: white;
+}
+
 header, footer {
     background-color: #000000;
     color: #ffffff;
@@ -382,6 +397,10 @@ h1 {
 
 
 /* Informations du profil */
+
+#porte-monnaie {
+    text-align: center;
+}
 
 .infos-profil {
     width: 100%;
