@@ -13,9 +13,8 @@ public interface EnchereService {
      * Adds an auction.
      *
      * @param enchere The auction to add.
-     * @throws EnchereServiceException If an error occurs while adding the auction.
      */
-    void addEnchere(Enchere enchere) throws EnchereServiceException;
+    void addEnchere(Enchere enchere);
 
     /**
      * Retrieves the list of all auctions.

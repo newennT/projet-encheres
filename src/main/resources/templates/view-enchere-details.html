@@ -16,7 +16,7 @@
 
     <div data-th-object="${article}" class="form-inscription">
         <div>
-            <form data-th-action="@{encheres/details}" method="post">
+            <form data-th-action="@{/encheres/details}" method="post">
                 <h2 data-th-text="*{nom_article}"></h2>
 
                 <p class="infos-details-titre">Description</p>
@@ -44,11 +44,15 @@
                     <p data-th-text="*{utilisateur.getPseudo()}"></p>
                 </a>
 
-                <!--<label class="infos-details-titre" for="proposition">Ma proposition</label>
-            <input type="number" id="proposition" name="proposition" data-th-value="${montant_enchere}"/>
-            <span style="color: red" data-th-if="${#fields.hasErrors('montant_enchere')}" data-th-errors="${montant_enchere}"></span>
+                <input type="hidden" id="id" name="id" data-th-value="*{no_article}">
 
-            <button type="submit" value="ajouter" class="btn-primary btn-primary-fondblanc">Enchérir</button>-->
+                <label class="infos-details-titre" for="proposition">Ma proposition</label>
+                <input type="number" id="proposition" name="proposition"/>
+                <span style="color: red" data-th-if="${invalidProposition != null}" data-th-text="${invalidProposition}"></span>
+                <span style="color: red" data-th-if="${invalidCredit != null}" data-th-text="${invalidCredit}"></span>
+
+
+                <button type="submit" value="ajouter" class="btn-primary btn-primary-fondblanc">Enchérir</button>
             </form>
         </div>
 

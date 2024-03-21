@@ -39,6 +39,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
             "telephone = :telephone, rue = :rue, code_postal = :codePostal, ville = :ville, mot_de_passe = :motDePasse " +
             "WHERE no_utilisateur = :noUtilisateur";
 
+    final String UPDATE_CREDIT = "UPDATE UTILISATEURS SET credit = :credit WHERE no_utilisateur = :no";
+
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     /**
@@ -172,5 +174,20 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     public void update(Utilisateur utilisateur) {
         BeanPropertySqlParameterSource namedParameters = new BeanPropertySqlParameterSource(utilisateur);
         namedParameterJdbcTemplate.update(UPDATE, namedParameters);
+    }
+
+    /**
+     * Updates the credit for the user with the specified ID.
+     *
+     * @param credit The new credit amount.
+     * @param no The ID of the user whose credit is to be updated.
+     */
+    @Override
+    public void updateCredit(int credit, long no) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("credit", credit);
+        namedParameters.addValue("no", no);
+
+        namedParameterJdbcTemplate.update(UPDATE_CREDIT, namedParameters);
     }
 }

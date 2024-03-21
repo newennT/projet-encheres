@@ -30,4 +30,12 @@ public interface ArticleDAO {
      * @return The Article entity corresponding to the specified identifier.
      */
     Article getByID(long id);
+
+    /**
+     * Updates the price in the database with the specified amount for the given item number.
+     *
+     * @param montant The amount to update the price by.
+     * @param no The item number for which the price should be updated.
+     */
+    void updatePrix(int montant, long no);
 }

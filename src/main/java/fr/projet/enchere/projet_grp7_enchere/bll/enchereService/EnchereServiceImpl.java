@@ -31,11 +31,10 @@ public class EnchereServiceImpl implements EnchereService {
      * Adds an auction using the EnchereDAO object.
      *
      * @param enchere The auction to add.
-     * @throws EnchereServiceException If an error occurs while adding the auction.
      */
     @Override
     @Transactional
-    public void addEnchere(Enchere enchere) throws EnchereServiceException {
+    public void addEnchere(Enchere enchere) {
         dao.insert(enchere);
     }
 

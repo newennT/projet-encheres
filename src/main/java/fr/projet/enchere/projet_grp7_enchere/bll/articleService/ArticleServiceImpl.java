@@ -59,4 +59,15 @@ public class ArticleServiceImpl implements ArticleService {
     public Article getByID(long id) {
         return dao.getByID(id);
     }
+
+    /**
+     * Updates the price in the database with the specified amount for the given item number.
+     *
+     * @param montant The amount to update the price by.
+     * @param no The item number for which the price should be updated.
+     */
+    @Override
+    public void updatePrix(int montant, long no) {
+        dao.updatePrix(montant, no);
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.context.IContext;
 
 /**
  * Controller class responsible for handling requests related to user details and profiles.
@@ -142,7 +143,7 @@ public class UtilisateurController {
             profil.setNoUtilisateur(currentUser.getNoUtilisateur());
             utilisateurService.modifierUtilisateur(profil);
 
-            return "redirect:/logout";
+            return "redirect:/utilisateur/my-profil?no=" + currentUser.getNoUtilisateur();
         }
     }
 

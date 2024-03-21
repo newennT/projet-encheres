@@ -3,6 +3,7 @@ package fr.projet.enchere.projet_grp7_enchere.dal.articleDAO;
 import fr.projet.enchere.projet_grp7_enchere.bo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -47,6 +48,8 @@ public class ArticleDAOImpl implements ArticleDAO {
             "LEFT JOIN UTILISATEURS U ON AV.no_utilisateur = U.no_utilisateur " +
             "LEFT JOIN CATEGORIES C ON AV.no_categorie = C.no_categorie " +
             "WHERE no_article=:id";
+
+    final String UPDATE_PRIX = "UPDATE ARTICLES_VENDUS SET prix_vente = :montant WHERE no_article = :no";
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -115,6 +118,20 @@ public class ArticleDAOImpl implements ArticleDAO {
         } else {
             return articles.get(0);
         }
+    }
+
+    /**
+     * Updates the price in the database with the specified amount for the given item number.
+     *
+     * @param montant The amount to update the price by.
+     * @param no The item number for which the price should be updated.
+     */
+    @Override
+    public void updatePrix(int montant, long no) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("montant", montant);
+        namedParameters.addValue("no", no);
+        jdbcTemplate.update(UPDATE_PRIX, namedParameters);
     }
 
     /**

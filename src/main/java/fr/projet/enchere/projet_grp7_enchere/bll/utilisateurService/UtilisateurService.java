@@ -77,4 +77,12 @@ public interface UtilisateurService {
      * @return Yes if password is ok, no if not
      */
     Boolean isValidPassword(String password);
+
+    /**
+     * Updates the credit for the user with the specified ID.
+     *
+     * @param credit The new credit amount.
+     * @param no The ID of the user whose credit is to be updated.
+     */
+    void updateCredit(int credit, long no);
 }
