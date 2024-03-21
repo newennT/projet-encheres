@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="~{/layouts/layout :: layout(
+            pageContent=~{:: .main-content},
+            pageTitle=~{:: title},
+            additionalCss=~{}
+        )}"
+>
+
+<title>Profil</title>
+
+<body>
+    <main class="main-content">
+            <h1>Profil</h1>
+            <form xmlns:th="http://www.thymeleaf.org"
+                  data-th-action="@{/profil}"
+                  data-th-object="${profil}"
+                  method="post"
+                  class="form-profil">
+
+                <div>
+                    <label for="inputPseudo">Pseudo</label>
+                    <input type="text" name="pseudo" id="inputPseudo"
+                           autofocus="autofocus"
+                           data-th-field="*{pseudo}"
+                           required/>
+                    <span style="color: red"
+                          data-th-if="${#fields.hasErrors('pseudo')}"
+                          data-th-errors="*{pseudo}">
+                    </span>
+
+                    <label for="inputPrenom">Prénom</label>
+                    <input type="text" name="prenom" id="inputPrenom"
+                           autofocus="autofocus"
+                           data-th-field="*{prenom}"
+                           required/>
+                    <span style="color: red"
+                          data-th-if="${#fields.hasErrors('prenom')}"
+                          data-th-errors="*{prenom}">
+                    </span>
+
+                    <label for="inputTelephone">Téléphone</label>
+                    <input type="text" name="telephone" id="inputTelephone"
+                           autofocus="autofocus"
+                           data-th-field="*{telephone}"
+                           required/>
+                    <span style="color: red"
+                          data-th-if="${#fields.hasErrors('telephone')}"
+                          data-th-errors="*{telephone}">
+                    </span>
+
+                    <label for="inputCP">Code postal</label>
+                    <input type="text" name="cp" id="inputCP"
+                           autofocus="autofocus"
+                           data-th-field="*{codePostal}"
+                           required/>
+                    <span style="color: red"
+                          data-th-if="${#fields.hasErrors('codePostal')}"
+                          data-th-errors="*{codePostal}">
+                    </span>
+
+                    <label for="inputMdpActuel">Mot de passe actuel</label>
+                    <input type="password" name="motDePasseActuel" id="inputMdpActuel"
+                           autofocus="autofocus"
+                           data-th-text="${motDePasseActuel}"
+                           required/>
+                    <span style="color: red"
+                          data-th-if="${erreurMotDePasseActuel == true}"
+                    >
+                        Il y a une erreur dans le mot de passe.
+                    </span>
+                    <p data-th-text="${erreurMotDePasseActuel}"></p>
+
+                    <label for="inputNewMdp">Nouveau mot de passe :</label>
+                    <input type="password" name="mdpNouveau" id="inputNewMdp"
+                           autofocus="autofocus"
+                           data-th-text="${motDePasseNouveau}"/>
+                    <span style="color: red"
+                          data-th-if="${erreurMotDePasseNouveau == true}"
+                    >
+                        Le mot de passe doit contenir au moins 8 caractères, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial parmi @$!%*?&.
+                    </span>
+                    <p data-th-text="${erreurMotDePasseNouveau}"></p>
+
+                    <!-- <label>Crédit</label>
+                        <p data-th-text="${utilisateur.credit}"></p>
+                    -->
+                </div>
+
+                <div>
+                    <label for="inputNom">Nom</label>
+                    <input type="text" name="nom" id="inputNom"
+                           autofocus="autofocus"
+                           data-th-field="*{nom}"
+                           required/>
+                    <span style="color: red"
+                          data-th-if="${#fields.hasErrors('nom')}"
+                          data-th-errors="*{nom}">
+                    </span>
+
+
+                    <label for="inputEmail">Email</label>
+                    <input type="text" name="email" id="inputEmail"
+                           autofocus="autofocus"
+                           data-th-field="*{email}"
+                           required/>
+                    <span style="color: red"
+                          data-th-if="${#fields.hasErrors('email')}"
+                          data-th-errors="*{email}">
+                    </span>
+
+                    <label for="inputRue">Rue</label>
+                    <input type="text" name="rue" id="inputRue"
+                           autofocus="autofocus"
+                           data-th-field="*{rue}"
+                           required/>
+                    <span style="color: red"
+                          data-th-if="${#fields.hasErrors('rue')}"
+                          data-th-errors="*{rue}">
+                    </span>
+
+                    <label for="inputVille">Ville</label>
+                    <input type="text" name="ville" id="inputVille"
+                           autofocus="autofocus"
+                           data-th-field="*{ville}"
+                           required/>
+                    <span style="color: red"
+                          data-th-if="${#fields.hasErrors('ville')}"
+                          data-th-errors="*{ville}">
+                    </span>
+
+                    <label for="inputConfirmationMdp">Confirmation :</label>
+                    <input type="password" name="mdpConfirmation" id="inputConfirmationMdp"
+                           data-th-text="${motDePasseConfirmation}"
+                           autofocus="autofocus"/>
+                    <span style="color: red"
+                          data-th-if="${erreurMotDePasseConfirmation == true}"
+                    >
+                        La confirmation doit être identique au nouveau mot de passe défini.
+                    </span>
+                    <p data-th-text="${erreurMotDePasseConfirmation}"></p>
+
+                    <!-- Hidden inputs for the profil -->
+                    <div style="display: none;">
+                        <label for="inputNum">N° utilisateur</label>
+                        <input type="text" name="numero" id="inputNum"
+                               readonly
+                               data-th-field="*{noUtilisateur}"/>
+
+                        <label for="inputPassword">Password</label>
+                        <input type="text" name="password" id="inputPassword"
+                               readonly
+                               data-th-field="*{motDePasse}"/>
+
+                        <label for="inputCredit">Crédits</label>
+                        <input type="number" name="credit" id="inputCredit"
+                               readonly
+                               data-th-field="*{credit}"/>
+
+                        <label for="inputAdmin">Admin</label>
+                        <input type="text" name="admin" id="inputAdmin"
+                               readonly
+                               data-th-field="*{administrateur}"/>
+                    </div>
+
+                    <button type="submit" value="Enregistrer" class="btn-primary btn-primary-fondblanc">Enregistrer</button>
+                    <button class="btn-secondary"><a data-th-href="@{/delete-profil(pseudo=${profil.pseudo})}">Supprimer mon compte</a></button>
+
+                </div>
+            </form>
+        </main>
+    </body>
+</html>

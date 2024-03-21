@@ -45,4 +45,20 @@ public interface UtilisateurService {
      * @return List of all Utilisateur objects.
      */
     List<Utilisateur> getAll();
+
+    /**
+     * Modifies an Utilisateur in the Database.
+     *
+     * @param utilisateur The Utilisateur object to be modified.
+     */
+    void modifierUtilisateur(Utilisateur utilisateur);
+
+    Boolean doPasswordsMatch(String saisie,String encodedPassword);
+
+    /**
+     * To validate the pattern of the new password in the profile edition
+     * @param password
+     * @return Yes if password is ok, no if not
+     */
+    Boolean isValidPassword(String password);
 }

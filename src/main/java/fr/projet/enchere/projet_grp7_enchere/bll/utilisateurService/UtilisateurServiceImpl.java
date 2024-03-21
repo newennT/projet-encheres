@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Implementation of the UtilisateurService interface providing business logic for user-related operations.
@@ -83,5 +85,31 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @Override
     public List<Utilisateur> getAll() {
         return utilisateurDAO.getAll();
+    }
+
+    /**
+     * Edit the profile of the Utilisateur in DataBase.
+     *
+     * @param utilisateur The Utilisateur object to be modified.
+     */
+    @Override
+    public void modifierUtilisateur(Utilisateur utilisateur) {
+        utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
+        utilisateurDAO.update(utilisateur);
+    }
+
+    public Boolean doPasswordsMatch(String saisie,String encodedPassword) {
+        return passwordEncoder.matches(saisie, encodedPassword);
+    }
+
+    /**
+     * To validate the pattern of the new password in the profile edition
+     * @param password
+     * @return Yes if password is ok, no if not
+     */
+    public Boolean isValidPassword(String password){
+        Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+        Matcher matcher = pattern.matcher(password);
+        return matcher.find();
     }
 }

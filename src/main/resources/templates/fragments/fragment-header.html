@@ -10,7 +10,7 @@
             <li th:if="${#ctx.session.currentUser == null}"><a data-th-href="@{/login}">Se connecter</a></li>
             <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/}">Enchères</a></li>
             <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/article}">Vendre un article</a></li>
-            <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/edit(pseudo=${#ctx.session.currentUser.pseudo})}">Mon profil</a></li>
+            <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/profil(pseudo=${#ctx.session.currentUser.pseudo})}">Mon profil</a></li>
             <li th:if="${#ctx.session.currentUser != null}"><a data-th-href="@{/logout}">Déconnexion</a></li>
         </ul>
     </nav>

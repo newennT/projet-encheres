@@ -45,4 +45,11 @@ public interface UtilisateurDAO {
      * @param utilisateur The Utilisateur object to be removed.
      */
     void deleteUser(Utilisateur utilisateur);
+
+    /**
+     * Update the Utilisateur into the database.
+     *
+     * @param utilisateur The Utilisateur object to be modified.
+     */
+    void update(Utilisateur utilisateur);
 }

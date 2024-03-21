@@ -33,6 +33,20 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
     final String DELETE_USER = "DELETE FROM UTILISATEURS WHERE no_utilisateur=:no_utilisateur";
 
+    final String UPDATE =
+            "UPDATE UTILISATEURS " +
+            "SET " +
+                    "pseudo = :pseudo, " +
+                    "nom = :nom, " +
+                    "prenom = :prenom, " +
+                    "email = :email, " +
+                    "telephone = :telephone, " +
+                    "rue = :rue, " +
+                    "code_postal = :codePostal, " +
+                    "ville = :ville, " +
+                    "mot_de_passe = :motDePasse " +
+            "WHERE no_utilisateur = :id";
+
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -133,5 +147,18 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("no_utilisateur", utilisateur.getNoUtilisateur());
         namedParameterJdbcTemplate.update(DELETE_USER, namedParameters);
+    }
+
+    /**
+     * Update the Utilisateur into the database.
+     *
+     * @param utilisateur The Utilisateur object to be modified.
+     */
+    @Override
+    public void update(Utilisateur utilisateur) {
+        System.out.println(utilisateur);
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("utilisateur", utilisateur);
+        namedParameterJdbcTemplate.update(UPDATE, namedParameters);
     }
 }

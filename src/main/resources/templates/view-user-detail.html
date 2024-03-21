@@ -58,7 +58,7 @@
     </div>
 
     <div data-th-if="${#ctx.session.currentUser != null && #ctx.session.currentUser == utilisateur}">
-        <button class="btn-primary btn-primary-fondblanc"><a data-th-href="@{/edit(pseudo=${#ctx.session.currentUser.pseudo})}">Modifier</a>
+        <button class="btn-primary btn-primary-fondblanc"><a data-th-href="@{/profil(pseudo=${#ctx.session.currentUser.pseudo})}">Modifier</a>
         </button>
     </div>
 
