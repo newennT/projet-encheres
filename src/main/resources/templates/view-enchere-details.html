@@ -13,44 +13,54 @@
 <body>
 <main class="main-content">
     <h1>Voir la vente</h1>
-    <form data-th-action="@{encheres/details}" data-th-object="${article}" class="form-inscription">
+
+    <div data-th-object="${article}" class="form-inscription">
         <div>
-            <h2 data-th-text="*{nom_article}"></h2>
+            <form data-th-action="@{encheres/details}" method="post">
+                <h2 data-th-text="*{nom_article}"></h2>
 
-            <p class="infos-details-titre">Description</p>
-            <p data-th-text="*{description}"></p>
+                <p class="infos-details-titre">Description</p>
+                <p data-th-text="*{description}"></p>
 
-            <p class="infos-details-titre">Catégorie</p>
-            <p data-th-text="*{categorie.getLibelle()}"></p>
+                <p class="infos-details-titre">Catégorie</p>
+                <p data-th-text="*{categorie.getLibelle()}"></p>
 
-            <p class="infos-details-titre">Meilleur offre</p>
-            <p data-th-text="*{prix_vente}"></p>
+                <p class="infos-details-titre">Meilleur offre</p>
+                <p data-th-text="*{prix_vente}"></p>
 
-            <p class="infos-details-titre">Mise à prix</p>
-            <p data-th-text="*{prix_initial}"></p>
+                <p class="infos-details-titre">Mise à prix</p>
+                <p data-th-text="*{prix_initial}"></p>
+
+                <p class="infos-details-titre">Fin des enchères</p>
+                <p data-th-text="*{date_fin_encheres}"></p>
+
+                <p class="infos-details-titre">Retrait</p>
+                <p data-th-text="*{retrait.getRue()}"></p>
+                <p data-th-text="*{retrait.getVille()}"></p>
+                <p data-th-text="*{retrait.getCode_postal()}"></p>
+
+                <p class="infos-details-titre">Vendeur</p>
+                <a data-th-href="@{/utilisateur/details(no=${article.utilisateur.getNoUtilisateur()})}">
+                    <p data-th-text="*{utilisateur.getPseudo()}"></p>
+                </a>
+
+                <!--<label class="infos-details-titre" for="proposition">Ma proposition</label>
+            <input type="number" id="proposition" name="proposition" data-th-value="${montant_enchere}"/>
+            <span style="color: red" data-th-if="${#fields.hasErrors('montant_enchere')}" data-th-errors="${montant_enchere}"></span>
+
+            <button type="submit" value="ajouter" class="btn-primary btn-primary-fondblanc">Enchérir</button>-->
+            </form>
         </div>
 
         <div>
-            <p class="infos-details-titre">Fin des enchères</p>
-            <p data-th-text="*{date_fin_encheres}"></p>
-
-            <p class="infos-details-titre">Retrait</p>
-            <p data-th-text="*{retrait.getRue()}"></p>
-            <p data-th-text="*{retrait.getVille()}"></p>
-            <p data-th-text="*{retrait.getCode_postal()}"></p>
-
-            <p class="infos-details-titre">Vendeur</p>
-            <a data-th-href="@{/utilisateur/details(no=${article.utilisateur.getNoUtilisateur()})}">
-                <p data-th-text="*{utilisateur.getPseudo()}"></p>
-            </a>
+            <h3>Liste des enchères</h3>
+            <span data-th-each="enchere : ${encheres}"
+                 data-th-if="${enchere.article.no_article} == ${article.no_article}">
+                <p data-th-text="${enchere.utilisateur.pseudo} + ' à misé(e) ' + ${enchere.montant_enchere} +
+                ' points le ' + ${enchere.date_enchere} + '.'"></p>
+            </span>
         </div>
-
-        <!--<label class="infos-details-titre" for="proposition">Ma proposition</label>
-        <input type="number" id="proposition" name="proposition" data-th-value="${montant_enchere}"/>
-        <span style="color: red" data-th-if="${#fields.hasErrors('montant_enchere')}" data-th-errors="${montant_enchere}"></span>
-
-        <button type="submit" value="ajouter" class="btn-primary btn-primary-fondblanc">Enchérir</button>-->
-    </form>
+    </div>
 </main>
 </body>
 </html>

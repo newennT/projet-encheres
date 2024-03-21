@@ -2,8 +2,10 @@ package fr.projet.enchere.projet_grp7_enchere.ihm;
 
 import fr.projet.enchere.projet_grp7_enchere.bll.articleService.ArticleService;
 import fr.projet.enchere.projet_grp7_enchere.bll.categorieService.CategorieService;
+import fr.projet.enchere.projet_grp7_enchere.bll.enchereService.EnchereService;
 import fr.projet.enchere.projet_grp7_enchere.bo.Article;
 import fr.projet.enchere.projet_grp7_enchere.bo.Categorie;
+import fr.projet.enchere.projet_grp7_enchere.bo.Enchere;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,7 @@ public class EncheresController {
 
     private final CategorieService categorieService;
     private final ArticleService articleService;
+    private final EnchereService enchereService;
 
     /**
      * Constructor for the IndexController class.
@@ -32,10 +35,10 @@ public class EncheresController {
      * @param articleService   The service responsible for handling article-related operations.
      */
     @Autowired
-    public EncheresController(CategorieService categorieService,
-                              ArticleService articleService) {
+    public EncheresController(CategorieService categorieService, ArticleService articleService, EnchereService enchereService) {
         this.categorieService = categorieService;
         this.articleService = articleService;
+        this.enchereService = enchereService;
     }
 
     /**
@@ -66,6 +69,9 @@ public class EncheresController {
 
         Article article = articleService.getByID(id);
         model.addAttribute("article", article);
+
+        List<Enchere> encheres = enchereService.getAll();
+        model.addAttribute("encheres", encheres);
 
         return "view-enchere-details";
     }
