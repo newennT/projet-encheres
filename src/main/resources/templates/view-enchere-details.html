@@ -45,17 +45,22 @@
                     <p data-th-text="*{utilisateur.getPseudo()}"></p>
                 </a>
 
-                <div data-th-if="${article.date_debut_encheres lt T(java.time.LocalDate).now()
-                 and article.date_fin_encheres gt T(java.time.LocalDate).now()}">
+                <div data-th-if="${(article.utilisateur.pseudo != #ctx.session.currentUser.pseudo)
+                 and (article.date_debut_encheres lt T(java.time.LocalDate).now()
+                 and article.date_fin_encheres gt T(java.time.LocalDate).now()
+                 or article.date_debut_encheres eq T(java.time.LocalDate).now()
+                 or article.date_fin_encheres eq T(java.time.LocalDate).now())}">
                     <input type="hidden" id="id" name="id" data-th-value="*{no_article}">
 
                     <label class="infos-details-titre" for="proposition">Ma proposition</label>
                     <input type="number" id="proposition" name="proposition"/>
-                    <span style="color: red" data-th-if="${invalidProposition != null}" data-th-text="${invalidProposition}"></span>
-                    <span style="color: red" data-th-if="${invalidCredit != null}" data-th-text="${invalidCredit}"></span>
-                </div>
+                    <span style="color: red" data-th-if="${invalidProposition != null}"
+                          data-th-text="${invalidProposition}"></span>
+                    <span style="color: red" data-th-if="${invalidCredit != null}"
+                          data-th-text="${invalidCredit}"></span>
 
-                <button type="submit" value="ajouter" class="btn-primary btn-primary-fondblanc">Enchérir</button>
+                    <button type="submit" value="ajouter" class="btn-primary btn-primary-fondblanc">Enchérir</button>
+                </div>
             </form>
         </div>
 

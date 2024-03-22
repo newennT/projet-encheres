@@ -20,9 +20,9 @@ import java.util.List;
 public class ArticleDAOImpl implements ArticleDAO {
 
     // SQL REQUESTS
-    final String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, prix_initial, " +
+    final String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, prix_initial, prix_vente, " +
             "date_debut_encheres, date_fin_encheres, no_utilisateur, no_categorie, no_retrait) " +
-            "VALUES (:nom_article, :description, :prix_initial, :date_debut_encheres, :date_fin_encheres, " +
+            "VALUES (:nom_article, :description, :prix_initial, :prix_vente, :date_debut_encheres, :date_fin_encheres, " +
             ":no_utilisateur, :no_categorie, :no_retrait)";
 
     final String SELECT = "SELECT AV.no_article, AV.nom_article, AV.description, AV.date_debut_encheres, " +
