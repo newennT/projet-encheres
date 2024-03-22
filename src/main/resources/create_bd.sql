@@ -44,7 +44,7 @@ CREATE TABLE ARTICLES_VENDUS
 -- Table des lieux de retrait des articles
 CREATE TABLE RETRAITS
 (
-    no_retrait  INTEGER PRIMARY KEY,  -- Identifiant unique du lieu de retrait
+    no_retrait  INTEGER AUTO_INCREMENT PRIMARY KEY,  -- Identifiant unique du lieu de retrait
     rue         VARCHAR(30) NOT NULL, -- Rue du lieu de retrait
     code_postal VARCHAR(15) NOT NULL, -- Code postal du lieu de retrait
     ville       VARCHAR(30) NOT NULL  -- Ville du lieu de retrait

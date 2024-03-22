@@ -102,7 +102,9 @@ additionalCss=~{})}">
     <section class="articles">
         <article data-th-each="article : ${lstArticles}"
                  data-th-if="${article.date_debut_encheres lt T(java.time.LocalDate).now()
-                 and article.date_fin_encheres gt T(java.time.LocalDate).now()}">
+                 and article.date_fin_encheres gt T(java.time.LocalDate).now()
+                 or article.date_debut_encheres eq T(java.time.LocalDate).now()
+                 or article.date_fin_encheres eq T(java.time.LocalDate).now()}">
 
             <!-- Informations sur les articles -->
             <div class="infos">

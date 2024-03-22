@@ -10,6 +10,7 @@ import fr.projet.enchere.projet_grp7_enchere.bo.Enchere;
 import fr.projet.enchere.projet_grp7_enchere.bo.Utilisateur;
 import fr.projet.enchere.projet_grp7_enchere.securite.UtilisateurSession;
 import fr.projet.enchere.projet_grp7_enchere.securite.UtilisateurSessionService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -41,7 +42,6 @@ public class EncheresController {
     private final ArticleService articleService;
     private final EnchereService enchereService;
     private final UtilisateurService utilisateurService;
-    private final UtilisateurSessionService utilisateurSessionService;
 
     /**
      * Constructor for the IndexController class.
@@ -52,13 +52,11 @@ public class EncheresController {
      */
     @Autowired
     public EncheresController(CategorieService categorieService, ArticleService articleService,
-                              EnchereService enchereService, UtilisateurService utilisateurService,
-                              UtilisateurSessionService utilisateurSessionService) {
+                              EnchereService enchereService, UtilisateurService utilisateurService) {
         this.categorieService = categorieService;
         this.articleService = articleService;
         this.enchereService = enchereService;
         this.utilisateurService = utilisateurService;
-        this.utilisateurSessionService = utilisateurSessionService;
     }
 
     /**
@@ -99,20 +97,20 @@ public class EncheresController {
     /**
      * Handles the POST request for making a bid on an article.
      *
-     * @param id The ID of the article.
+     * @param id         The ID of the article.
      * @param propositon The proposed bid amount.
-     * @param model The Spring model object for passing data to the view.
+     * @param model      The Spring model object for passing data to the view.
      * @return The view to redirect to after processing the bid.
      */
     @PostMapping("/details")
     public String faireUneProposition(@RequestParam(name = "id") long id,
-                                      @RequestParam(name = "proposition") int propositon, Model model) {
+                                      @RequestParam(name = "proposition") int propositon, HttpSession session, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Utilisateur currentUser = utilisateurService.trouverParPseudo(authentication.getName());
 
         Article article = articleService.getByID(id);
 
-        if (article.getPrix_vente() >= propositon){
+        if (article.getPrix_vente() >= propositon) {
             List<Enchere> encheres = enchereService.getAll();
             model.addAttribute("encheres", encheres);
             model.addAttribute("article", article);
@@ -122,7 +120,7 @@ public class EncheresController {
             return "view-enchere-details";
         }
 
-        if(propositon > currentUser.getCredit()){
+        if (propositon > currentUser.getCredit()) {
             List<Enchere> encheres = enchereService.getAll();
             model.addAttribute("encheres", encheres);
             model.addAttribute("article", article);
@@ -140,6 +138,39 @@ public class EncheresController {
         Enchere enchere = new Enchere(article, currentUser, LocalDate.now(), propositon);
         enchereService.addEnchere(enchere);
 
+        session.setAttribute("currentUser", currentUser);
+
+        Enchere lastEnchere = getEnchere(enchere);
+
+        utilisateurService.updateCredit(lastEnchere.getUtilisateur().getCredit() + lastEnchere.getMontant_enchere(),
+                lastEnchere.getUtilisateur().getNoUtilisateur());
+
         return "redirect:/encheres/details?id=" + id;
+    }
+
+    /**
+     * Cette méthode permet de récupérer la dernière enchère précédant une enchère donnée.
+     *
+     * @param enchere L'enchère dont on veut trouver la précédente.
+     * @return La dernière enchère précédant la donnée, null si aucune enchère précédente n'est trouvée.
+     */
+    private Enchere getEnchere(Enchere enchere) {
+        List<Enchere> encheres = enchereService.getAll();
+        Enchere firstEnchere = enchere;
+        for (Enchere i : encheres) {
+            if (i.getDate_enchere().isBefore(firstEnchere.getDate_enchere())) {
+                firstEnchere = i;
+            }
+        }
+
+        Enchere lastEnchere = enchere;
+        for (Enchere i : encheres) {
+            if (i.getDate_enchere().isAfter(firstEnchere.getDate_enchere())) {
+                if (i.getDate_enchere().isBefore(enchere.getDate_enchere())) {
+                    lastEnchere = i;
+                }
+            }
+        }
+        return lastEnchere;
     }
 }

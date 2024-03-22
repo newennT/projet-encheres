@@ -29,11 +29,10 @@ public class RetraitServiceImpl implements RetraitService {
      * Adds a withdrawal using the RetraitDAO object.
      *
      * @param retrait The withdrawal to add.
-     * @throws RetraitServiceException If an error occurs while adding the withdrawal.
      */
     @Override
     @Transactional
-    public void addRetrait(Retrait retrait) throws RetraitServiceException {
+    public void addRetrait(Retrait retrait) {
         dao.insert(retrait);
     }
 }

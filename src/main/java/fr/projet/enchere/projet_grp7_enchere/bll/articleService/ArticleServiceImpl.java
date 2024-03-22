@@ -31,11 +31,10 @@ public class ArticleServiceImpl implements ArticleService {
      * Adds an article to the database.
      *
      * @param article The article to add.
-     * @throws ArticleServiceException If an error occurs while adding the article.
      */
     @Override
     @Transactional
-    public void addArticle(Article article) throws ArticleServiceException {
+    public void addArticle(Article article) {
         dao.insert(article);
     }
 

@@ -12,12 +12,10 @@
 
 <body>
 <main class="main-content">
-    <h1 style="color:red" data-th-text="${erreur}"/>
 
     <h1>Vendre un article</h1>
 
-    <form data-th-action="@{/encheres/ajout-article}" data-th-object="${article}" enctype="multipart/form-data" method="post"
-          class="nouvel-article">
+    <form data-th-action="@{/encheres/ajout-article}" data-th-object="${article}" method="post" class="nouvel-article">
         <div class="infos-article">
             <label for="nom_article">Nom</label>
             <input type="text" id="nom_article" data-th-field="*{nom_article}"/>
@@ -29,8 +27,12 @@
 
             <label for="categorie">Categorie</label>
             <select id="categorie" name="categorie">
-                <option data-th-each="categories : ${lstCategories}"
-                        data-th-text="${categories.libelle}" data-th-value="${categories.no_categorie}"></option>
+                <option
+                        name="categorie"
+                        data-th-each="categories : ${lstCategories}"
+                        data-th-text="${categories.getLibelle()}"
+                        data-th-value="${categories.getNo_categorie()}">
+                </option>
             </select> <br>
 
             <label for="prix_initial">Mise a prix</label>
@@ -54,12 +56,10 @@
                 <input type="text" name="rue" id="rue" data-th-field="*{retrait.rue}">
                 <span data-th-if="${#fields.hasErrors('retrait.rue')}" data-th-errors="*{retrait.rue}"></span> <br>
 
-
                 <label for="code_postal">Code postal</label>
                 <input type="text" name="code_postal" id="code_postal" data-th-field="*{retrait.code_postal}">
                 <span data-th-if="${#fields.hasErrors('retrait.code_postal')}"
                       data-th-errors="*{retrait.code_postal}"></span> <br>
-
 
                 <label for="ville">Ville</label>
                 <input type="text" name="ville" id="ville" data-th-field="*{retrait.ville}">

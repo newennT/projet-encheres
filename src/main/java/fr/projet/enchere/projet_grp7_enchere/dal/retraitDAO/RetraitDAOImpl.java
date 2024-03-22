@@ -4,6 +4,7 @@ package fr.projet.enchere.projet_grp7_enchere.dal.retraitDAO;
 import fr.projet.enchere.projet_grp7_enchere.bo.Retrait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -11,6 +12,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Data Access Object (DAO) implementation for Retrait entities.
@@ -53,13 +55,7 @@ public class RetraitDAOImpl implements RetraitDAO {
     @Override
     public void insert(Retrait retrait) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-
-        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
-
-        namedParameters.addValue("rue", retrait.getRue());
-        namedParameters.addValue("code_postal", retrait.getCode_postal());
-        namedParameters.addValue("ville", retrait.getVille());
-
+        BeanPropertySqlParameterSource namedParameters = new BeanPropertySqlParameterSource(retrait);
         jdbcTemplate.update(INSERT, namedParameters, keyHolder);
 
         if (keyHolder.getKey() != null) {

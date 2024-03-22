@@ -1,10 +1,8 @@
 package fr.projet.enchere.projet_grp7_enchere.ihm;
 
 import fr.projet.enchere.projet_grp7_enchere.bll.articleService.ArticleService;
-import fr.projet.enchere.projet_grp7_enchere.bll.articleService.ArticleServiceException;
 import fr.projet.enchere.projet_grp7_enchere.bll.categorieService.CategorieService;
 import fr.projet.enchere.projet_grp7_enchere.bll.retraitService.RetraitService;
-import fr.projet.enchere.projet_grp7_enchere.bll.retraitService.RetraitServiceException;
 import fr.projet.enchere.projet_grp7_enchere.bo.*;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -15,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 //TODO - Ajout d'un article -> Implémentation EN COURS
 /**
@@ -51,48 +50,46 @@ public class ArticleController {
     @GetMapping("/ajout-article")
     public String init(Model model) {
         model.addAttribute("article", new Article());
+
+        List<Categorie> categories = categorieService.getAll();
+        model.addAttribute("lstCategories", categories);
+
         return "view-article";
-    }
-
-    /**
-     * Retrieves a list of categories as a model attribute.
-     *
-     * @return The list of categories.
-     */
-    @ModelAttribute("lstCategories")
-    private List<Categorie> getListCategorie() {
-        return categorieService.getAll();
-    }
-
-    /**
-     * Retrieves a list of articles as a model attribute.
-     *
-     * @return The list of articles.
-     */
-    @ModelAttribute("lstArticles")
-    private List<Article> getListArticles() {
-        return service.getAll();
     }
 
     /**
      * Handles the HTTP POST request to add a new article.
      *
      * @param article The article object to be added.
-     * @param errors  The binding result containing potential validation errors.
+     * @param bindingResult  The binding result containing potential validation errors.
      * @return The redirect URL after adding the article.
      */
     @PostMapping("/ajout-article")
-    public String valid(@Valid @ModelAttribute("article") Article article, BindingResult errors, HttpSession session,
-                        Model model) throws RetraitServiceException, ArticleServiceException {
+    public String valid(@Valid @ModelAttribute("article") Article article, BindingResult bindingResult,
+                        @RequestParam(name = "categorie") int categorieID, HttpSession session, Model model) {
         Utilisateur currentUser = (Utilisateur) session.getAttribute("currentUser");
-        if (errors.hasErrors()) {
+
+        if (bindingResult.hasErrors()) {
+            List<Categorie> categories = categorieService.getAll();
+            model.addAttribute("lstCategories", categories);
+            model.addAttribute("error", Objects.requireNonNull(bindingResult.getFieldError()).getField());
             return "view-article";
         }
+
         article.setUtilisateur(currentUser);
 
-        Retrait retrait = new Retrait(article.getRetrait().getRue(), article.getRetrait().getCode_postal(), article.getRetrait().getVille());
+        Categorie categorie = categorieService.getCategorieById(categorieID);
+        article.setCategorie(categorie);
 
+        Retrait retrait = new Retrait(article.getRetrait().getRue(), article.getRetrait().getCode_postal(),
+                article.getRetrait().getVille());
         retraitService.addRetrait(retrait);
+        article.setRetrait(retrait);
+
+        System.out.println(article.getUtilisateur().getNoUtilisateur());
+        System.out.println(article.getCategorie().getNo_categorie());
+        System.out.println(article.getRetrait().getNo_retrait());
+
         service.addArticle(article);
 
         return "redirect:/";

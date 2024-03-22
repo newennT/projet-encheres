@@ -40,13 +40,10 @@ public class Article implements Serializable {
     @URL(message = "{validation.article_img.url}")
     private String article_img;
 
-    @NotNull(message = "{validation.categorie.notNull}")
     private Categorie categorie;
 
-    @NotNull(message = "{validation.utilisateur.notNull}")
     private Utilisateur utilisateur;
 
-    @NotNull(message = "{validation.retrait.notNull}")
     private Retrait retrait;
 
     /**

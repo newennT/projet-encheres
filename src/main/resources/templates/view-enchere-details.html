@@ -15,6 +15,7 @@
     <h1>Voir la vente</h1>
 
     <div data-th-object="${article}" class="form-inscription">
+
         <div>
             <form data-th-action="@{/encheres/details}" method="post">
                 <h2 data-th-text="*{nom_article}"></h2>
@@ -44,13 +45,15 @@
                     <p data-th-text="*{utilisateur.getPseudo()}"></p>
                 </a>
 
-                <input type="hidden" id="id" name="id" data-th-value="*{no_article}">
+                <div data-th-if="${article.date_debut_encheres lt T(java.time.LocalDate).now()
+                 and article.date_fin_encheres gt T(java.time.LocalDate).now()}">
+                    <input type="hidden" id="id" name="id" data-th-value="*{no_article}">
 
-                <label class="infos-details-titre" for="proposition">Ma proposition</label>
-                <input type="number" id="proposition" name="proposition"/>
-                <span style="color: red" data-th-if="${invalidProposition != null}" data-th-text="${invalidProposition}"></span>
-                <span style="color: red" data-th-if="${invalidCredit != null}" data-th-text="${invalidCredit}"></span>
-
+                    <label class="infos-details-titre" for="proposition">Ma proposition</label>
+                    <input type="number" id="proposition" name="proposition"/>
+                    <span style="color: red" data-th-if="${invalidProposition != null}" data-th-text="${invalidProposition}"></span>
+                    <span style="color: red" data-th-if="${invalidCredit != null}" data-th-text="${invalidCredit}"></span>
+                </div>
 
                 <button type="submit" value="ajouter" class="btn-primary btn-primary-fondblanc">Enchérir</button>
             </form>

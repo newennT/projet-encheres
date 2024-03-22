@@ -13,9 +13,8 @@ public interface ArticleService {
      * Adds an article to the database.
      *
      * @param article The article to add.
-     * @throws ArticleServiceException If an error occurs while adding the article.
      */
-    void addArticle(Article article) throws ArticleServiceException;
+    void addArticle(Article article);
 
     /**
      * Retrieves a list of all articles present in the database.
